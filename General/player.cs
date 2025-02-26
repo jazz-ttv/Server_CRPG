@@ -164,7 +164,7 @@ function gameConnection::setGameBottomPrint(%client)
 // ============================================================
 function gameConnection::cityLotDisplay(%client, %lotBrick)
 {
-	%lotStr = "<just:right><font:palatino linotype:18>\c6" @ %lotBrick.getCityLotName();
+	%lotStr = "<just:right><font:Arial:16>\c6" @ %lotBrick.getCityLotName();
 	%lotStr = %lotStr @ "<br>\c6Zone: \c4" @ %lotBrick.getCityLotZone();
 
 	%duration = 2;
@@ -411,7 +411,7 @@ function gameConnection::buyResources(%client)
 		CitySO.lumber += %lumber;
 		CitySO.ore += %ore;
 		CitySO.fish += %fish;
-		cityDebug(1, "Resources sold: " @ "(" @ %client.name @ ")" @ %lumber @ " lumber @ " @ $City::Economics::LumberValue @ " and " @ %ore @ " ore @ " @ $City::Economics::OreValue @ " and " @ %fish @ " fish @ " @ $City::Economics::FishValue @ " | Payout: " @ %payout);
+		cityDebug(1, "Resources sold: " @ "(" @ %client.name @ ") " @ %lumber @ " lumber @ " @ $City::Economics::LumberValue @ " and " @ %ore @ " ore @ " @ $City::Economics::OreValue @ " and " @ %fish @ " fish @ " @ $City::Economics::FishValue @ " | Payout: " @ %payout);
 		City.set(%client.bl_id, "ore", 0);
 		City.set(%client.bl_id, "lumber", 0);
 		City.set(%client.bl_id, "fish", 0);
@@ -420,7 +420,7 @@ function gameConnection::buyResources(%client)
 	}
 	else
 	{
-		%client.centerPrint("<font:Arial:22>\c6You have no resources to sell.", 10);
+		%client.centerPrint("<font:Arial:20>\c6You have no resources to sell.", 10);
 	}
 }
 
@@ -560,28 +560,4 @@ function CityMenu_Player_ManageLot(%client)
 	%client.cityMenuClose(1);
 	%client.cityMenuBack = %client;
 	serverCmdLot(%client);
-}
-
-function CityMenu_Player_SetSpawn(%client)
-{
-	%client.cityMenuOpen($City::Menu::PlyrSetSpawnBaseTxt, $City::Menu::PlyrSetSpawnBaseFunc, %client, -1, 0, 1);
-}
-
-function CityMenu_Player_SetSpawnConfirm(%client, %input)
-{
-	%inputNum = atof(%input);
-	%selection = getField($City::SpawnPreferences, %inputNum-1);
-	%selectionID = getField($City::SpawnPreferenceIDs, %inputNum-1);
-
-	if(%inputNum == 0 || %selection $= "")
-	{
-		%client.cityMenuMessage("\c6Invalid selection. Please try again.");
-	}
-	else
-	{
-		%client.cityMenuMessage("\c6Spawn preference set to " @ $c_p @ %selection @ "\c6.");
-		City.set(%client.bl_id, "spawnPoint", selectionID);
-		%client.cityLog("Set spawn to " @ selectionID);
-		%client.cityMenuClose(1);
-	}
 }

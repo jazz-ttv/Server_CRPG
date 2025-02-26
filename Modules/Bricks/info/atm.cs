@@ -35,7 +35,7 @@ function CityMenu_ATM(%client, %brick)
 
 	%client.cityLog("Enter ATM");
 
-	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, $c_s @ "Welcome to the \c2" @ $Pref::Server::City::General::Name @ " Bank <br> " @ $c_s @ "Your account balance is " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
+	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, "\c2" @ $Pref::Server::City::General::Name @ " ATM <br> <font:Arial:22>" @ $c_s @ "Account balance: " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
 }
 
 // Withdraw money.

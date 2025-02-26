@@ -74,7 +74,7 @@ function CityMenu_RealEstate(%client, %input, %brick)
 	%message = " You own " @ $c_p @ %lotsOwned @ "\c6 lots of " @ $c_p @ $Pref::Server::City::RealEstate::maxLots @ "\c6 max.";
 
 	// %client.cityMenuMessage(%message);
-	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 1, $c_p @ $Pref::Server::City::General::Name @ $c_p @ " Real Estate" @ "\n\c6" @ %message);
+	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 1, $c_p @ $Pref::Server::City::General::Name @ $c_p @ " Real Estate" @ "\n<font:Arial:22>\c6" @ %message);
 }
 
 // List for sale
@@ -141,13 +141,13 @@ function CityMenu_RealEstate_ViewLotListings(%client, %input, %brick)
 
 		%ownerID = %lotBrick.getCityLotOwnerID();
 		if(%ownerID == 1)
-			%name = $Pref::Server::City::General::Name;
+			%name = "City";
 		else if(CityRPGData.existKey[%ownerID])
 			%name = City.get(%ownerID, "name");
 		else
 			%name = %lotBrick.getGroup().name;
 
-		%lotStr = %lotBrick.getCityLotName() @ " - " @ $c_p @ "$" @ %lotBrick.getCityLotPreownedPrice() @ "\c6 - Owner: " @ $c_p @ %name @ "\c6";
+		%lotStr = %lotBrick.getCityLotName() @ " - $" @ $c_p @ %lotBrick.getCityLotPreownedPrice() @ "\c6 - Owner: " @ $c_p @ %name;
 
 		if(%client.cityLotIndexCount == 1)
 		{
@@ -178,9 +178,9 @@ function CityMenu_RealEstate_ViewLotDetail(%client, %input, %brick)
 	%lotID = %client.cityLotIndex[%input];
 	%lotBrick = findLotBrickByID(%lotID);
 
-	if(%lotBrick.getCityLotOwnerID() == %client.bl_id) {
-		%client.cityMenuMessage($c_p @ "This is your lot.");
-	}
+	// if(%lotBrick.getCityLotOwnerID() == %client.bl_id) {
+	// 	%client.cityMenuMessage($c_p @ "This is your lot.");
+	// }
 
 	CityMenu_Lot(%client, %input);
 }

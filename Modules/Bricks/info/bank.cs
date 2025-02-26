@@ -40,7 +40,7 @@ function CityMenu_Bank(%client, %brick)
 
 	%client.cityLog("Enter bank");
 
-	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, $c_s @ "Welcome to the \c2" @ $Pref::Server::City::General::Name @ " Bank <br> " @ $c_s @ "Your account balance is " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
+	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, $c_s @ "Welcome to \c2" @ $Pref::Server::City::General::Name @ " Bank <br> <font:Arial:22>" @ $c_s @ "Your account balance is " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
 }
 
 // Withdraw money.

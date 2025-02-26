@@ -46,7 +46,7 @@ function CityMenu_Vote(%client, %brick)
 			%functions = "CityMayor_VoteImpeach";
 		}
 
-		//%client.cityMenuMessage("\c6There currently isn't an election. Check back later.");
+		%client.cityMenuMessage("\c3There isn't currently an election.\c6 Check back later.");
 	}
 
 	// Open the menu even if there are no options.

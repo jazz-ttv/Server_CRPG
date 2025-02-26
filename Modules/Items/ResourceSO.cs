@@ -41,7 +41,7 @@ function ResourceSO::addResources(%this)
 	ResourceSO.mineral[4] = new scriptObject() {
 		id = 4;
 		name = "Iron";
-		totalHits = 40;
+		totalHits = 28;
 		BPH = 0.21;
 		color = "0.31 0.29 0.25 1";
 		respawnMultiplier = 1; };
@@ -49,7 +49,7 @@ function ResourceSO::addResources(%this)
 	ResourceSO.mineral[5] = new scriptObject() {
 		id = 5;
 		name = "Silver";
-		totalHits = 52;
+		totalHits = 32;
 		BPH = 0.25;
 		color = "0.9 0.9 0.9 1";
 		respawnMultiplier = 1; };
@@ -57,7 +57,7 @@ function ResourceSO::addResources(%this)
 	ResourceSO.mineral[6] = new scriptObject() {
 		id = 6;
 		name = "Gold";
-		totalHits = 60;
+		totalHits = 40;
 		BPH = 0.22;
 		color = "0.9 0.9 0 1";
 		respawnMultiplier = 1; };
@@ -87,21 +87,21 @@ function ResourceSO::addResources(%this)
 		id = 3;
 		name = "Maple";
 		BPH = 0.21;
-		TotalHits = 40;
+		TotalHits = 16;
 		Color = "0.58 0.22 0 1"; };
 	
 	ResourceSO.tree[5] = new scriptObject() {
 		id = 3;
 		name = "Chestnut";
 		BPH = 0.25;
-		TotalHits = 52;
+		TotalHits = 20;
 		Color = "0.34 0.13 0.12 1"; };
 
 	ResourceSO.tree[6] = new scriptObject() {
 		id = 3;
 		name = "Walnut";
 		BPH = 0.22;
-		TotalHits = 60;
+		TotalHits = 28;
 		Color = "0.57 0.41 0.06 1"; };
 }
 

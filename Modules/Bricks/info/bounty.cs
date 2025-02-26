@@ -31,7 +31,7 @@ function CityMenu_Bounty(%client, %brick)
 {
 	//%client.cityMenuMessage("\c0Note:\c6 Placing a bounty (as a non-official) is criminal activity.");
 
-	%client.cityMenuOpen( $City::Menu::BountyBaseTxt, $City::Menu::BountyBaseFunc, %brick, "", 0, 0, "\c0Hit Office" @ "<br>\c6 Placing a bounty without skills is \c0criminal activity");
+	%client.cityMenuOpen( $City::Menu::BountyBaseTxt, $City::Menu::BountyBaseFunc, %brick, "", 0, 0, "\c0Hit Office" @ "<br><font:Arial:22>\c6 Placing a bounty without skills is \c0criminal activity");
 }
 
 function CityMenu_Bounty_List(%client, %brick)

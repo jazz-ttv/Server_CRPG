@@ -39,7 +39,7 @@ function CityMenu_CriminalBank(%client, %brick)
 
 	%client.cityLog("Enter criminal bank");
 
-	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, "\c2" @ $Pref::Server::City::General::Name @ " Underground Bank\c6 - Current Fee: \c0" @ $Pref::Server::City::General::CriminalBankFee * 100 @ "% <br>\c6 Your account balance is " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
+	%client.cityMenuOpen(%menu, %functions, %brick, "", 0, 0, "\c0Underground Bank\c6 - Current Fee: \c0" @ $Pref::Server::City::General::CriminalBankFee * 100 @ "% <br><font:Arial:22>\c6 Your account balance is " @ $c_p @ "$" @ City.get(%client.bl_id, "bank"));
 }
 
 // Withdraw money.

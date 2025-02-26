@@ -22,14 +22,14 @@ function GameConnection::cityMenuOpen(%client, %menu, %functions, %menuID, %exit
 		%menuObj = new ScriptObject()
 		{
 			isCenterprintMenu = 1;
-			menuName = $c_p @ %title; // Leave it blank.
+			menuName = "<font:Arial:24>" @ $c_p @ %title; // Leave it blank.
 
 			justify = "<just:center>";
 
 			deleteOnExit = 1;
 
-			fontA = "<font:palatino linotype:24>\c6";
-			fontB = "<font:palatino linotype:24><div:1>\c6";
+			fontA = "<font:Arial:20>\c6";
+			fontB = "<font:Arial:20><div:1>\c6";
 
 			menuOptionCount = getFieldCount(%menu);
 		};
