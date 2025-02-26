@@ -959,7 +959,6 @@ package CRPG_MainPackage
 		}
 	}
 
-	//TODO: Fix item spawning doesnt delete item when nonadmin but does when admin
 	function fxDTSBrick::setItem(%brick, %datablock, %client)
 	{
 		if(!%brick.getDatablock().CityRPGPermaspawn && %brick != $LastLoadedBrick)
@@ -1007,16 +1006,6 @@ package CRPG_MainPackage
 		// I forsee nothing that could go wrong with this in the package stack.
 		// Absolutely nothing.
 	}
-
-	// function EventDNC_RoutineCheck()
-	// {
-	// 	// weehee wacky hacky fun time
-	// 	// This fixes the day/night cycle events not triggering until the GUI is opened by an admin.
-	// 	%oldVal = $EnvGuiServer::DayCycleEnabled;
-	// 	$EnvGuiServer::DayCycleEnabled = ($Sky::DayCycleEnabled && $EnvGuiServer::SimpleMode) || ($EnvGuiServer::DayCycleEnabled && !$EnvGuiServer::SimpleMode);
-	// 	Parent::EventDNC_RoutineCheck();
-	// 	$EnvGuiServer::DayCycleEnabled = %oldVal;
-	// }
 
 // ============================================================
 // Refreshers and helpers
@@ -1099,43 +1088,6 @@ package CRPG_MainPackage
 		else
 			parent::pickSpawnPoint(%mini, %client);
 	}
-
-	function GameConnection::applyPersistence(%client, %gotPlayer, %gotCamera)
-	{
-		Parent::applyPersistence(%client, %gotPlayer, %gotCamera);
-
-		//The Checkpoint brick overwrites our spawn method.  This is part of our compatibility patch.
-		// if(%client.checkPointBrickPos $= "")
-		// 	return;
-
-		// %pos = %client.checkPointBrickPos;
-		// %box = "0.1 0.1 0.1";
-		// %mask = $TypeMasks::FxBrickAlwaysObjectType;
-		// InitContainerBoxSearch(%pos, %box, %mask);
-
-		// while (%checkBrick = containerSearchNext())
-		// {
-		// 	if(%checkBrick.getDataBlock().getName() !$= "brickCheckpointData")
-		// 		continue;
-
-		// 	%client.checkpointBrick = %checkBrick;
-		// 	break;
-		// }
-	}
-
-	// function serverCmdClearCheckpoint(%client)
-	// {
-	// 	 if(isObject(%client.checkPointBrick))
-	// 	 {
-	// 			%client.checkPointBrick = "";
-	// 			%client.checkPointBrickPos = "";
-
-	// 			messageClient(%client, '', '" @ $c_p @ "Checkpoint reset');
-
-	// 			// Use serverCmdsuicide so the other hook for /suicide can intercept this if necessary
-	// 			serverCmdsuicide(%client);
-	// 	 }
-	// }
 
 // ============================================================
 // Minigame Functions

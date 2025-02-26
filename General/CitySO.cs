@@ -50,9 +50,6 @@ if(!isObject(CitySO))
 // ============================================================
 // City_ Functions
 // ============================================================
-$Pref::Server::City::Economics::MaxLumber = 2000;
-$Pref::Server::City::Economics::MaxOre = 1500;
-$Pref::Server::City::Economics::MaxFish = 2000;
 
 function resourceClamp(%input)
 {

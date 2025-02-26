@@ -37,8 +37,6 @@ function CalendarSO::loadCalendar(%so)
 
 	// Holidays
 	%so.holiday[1] = "\c2Happy New Year!";
-	//%so.holiday[91] = "\c2A\c1p\c2r\c1i\c2l \c0F\c3o\c0o\c3l\c0s \c7D\c6a\c7y\c6!";
-	//%so.holiday[350] = "\c0H\c3a\c2p\c1p\c5y\c6 Holidays\c7!";
 }
 
 function CalendarSO::getDateStr(%so, %client)

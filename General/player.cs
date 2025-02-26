@@ -270,8 +270,6 @@ function gameConnection::getBounty(%client)
 	return City.get(%client.bl_id, "bounty");
 }
 
-//-----------------------------------------------------------
-
 function GameConnection::getCityRecordClearCost(%client)
 {
 	return 250 * (City.get(%client.bl_id, "education")+1);
@@ -424,7 +422,6 @@ function gameConnection::buyResources(%client)
 	}
 }
 
-//fix
 function gameConnection::doReincarnate(%client)
 {
 	CityRPGData.clearKey(%client.bl_id);

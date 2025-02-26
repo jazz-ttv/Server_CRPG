@@ -49,7 +49,7 @@ function fxDTSBrick::onTransferDecline(%brick, %client)
 	// Repeated Service Offer Hack
 	for(%i = 0; %i < %brick.numEvents; %i++)
 	{
-		if(%brick.eventInput[%i] $= "onTransferDecline" && (%brick.eventOutput[%i] $= "sellServices" || %brick.eventOutput[%i] $= "sellItem" || %brick.eventOutput[%i] $= "sellFood" || %brick.eventOutput[%i] $= "sellScratcher"))
+		if(%brick.eventInput[%i] $= "onTransferDecline" && (%brick.eventOutput[%i] $= "sellServices" || %brick.eventOutput[%i] $= "sellItem" || %brick.eventOutput[%i] $= "sellFood"))
 		%brick.eventEnabled[%i] = false;
 	}
 

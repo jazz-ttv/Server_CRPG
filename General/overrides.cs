@@ -55,5 +55,3 @@ package CRPG_Overrides
 		}
 	}
 };
-
-// Activation in Init.cs for highest priority

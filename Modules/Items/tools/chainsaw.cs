@@ -95,7 +95,7 @@ if(!isObject(CityRPGChainsawItem))
 
 	datablock ProjectileData(CityRPGChainsawProjectile)
 	{
-		directDamage        = 5;
+		directDamage        = 0;
 		impactImpulse       = 680;
 		verticalImpulse     = 300;
 		directDamageType  = $DamageType::chainsaw;

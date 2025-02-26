@@ -216,15 +216,10 @@ function GameConnection::doCityHungerStatus(%client)
 	}
 
 	if(City.get(%client.bl_id, "hunger") == 2)
-	{
-		// messageClient(%client, '', "\c6 - \c0You will not be able to collect your paycheck if you are starving.");
 		%msg = %msg @ "<br>\c6 - You will not be able to collect your paycheck if you are starving.";
-	}
 
 	if(City.get(%client.bl_id, "hunger") < 5)
-	{
 		%client.centerPrint("\c6" @ %msg, 5);
-	}
 }
 
 function GameConnection::doCityHungerEffects(%client)
@@ -248,8 +243,8 @@ function GameConnection::doCityHungerEffects(%client)
 
 	%rand = getRandom(1,6);
 
-	if(isObject(%client.player) && %rand != 1 && City.get(%client.bl_id, "hunger") < 3) {
-		// Hunger cramps sieze hold of your body...
+	if(isObject(%client.player) && %rand != 1 && City.get(%client.bl_id, "hunger") < 3) 
+	{
 		messageClient(%client, '', "\c0You're starving to death!");
 		%player = %client.player;
 

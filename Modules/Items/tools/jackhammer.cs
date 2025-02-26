@@ -73,7 +73,7 @@ if(!isObject(CityRPGJackhammerItem))
 	datablock ProjectileData(CityRPGJackhammerProjectile)
 	{
 
-	directDamage        = 5;
+	directDamage        = 0;
 	directDamageType    = $DamageType::JackhammerDirect;
 	radiusDamageType    = $DamageType::JackhammerDirect;
 

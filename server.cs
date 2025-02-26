@@ -29,13 +29,6 @@ if(%error == $Error::AddOn_NotFound)
   return;
 }
 
-%error = ForceRequiredAddOn("Item_KeyName");
-if(%error == $Error::AddOn_NotFound)
-{
-  error("ERROR: Server_CRPG - required add-on Item_KeyName not found");
-  return;
-}
-
 %error = ForceRequiredAddOn("Weapon_Guns_Akimbo");
 if(%error == $Error::AddOn_NotFound)
 {
@@ -156,6 +149,7 @@ exec($City::ScriptPath @ "items/weapons/limitedbaton.cs");
 exec($City::ScriptPath @ "items/tools/chainsaw.cs");
 exec($City::ScriptPath @ "items/tools/jackhammer.cs");
 exec($City::ScriptPath @ "items/tools/lockpick.cs");
+exec($City::ScriptPath @ "items/tools/personalKey.cs");
 exec($City::ScriptPath @ "RealEstate/lotRegistry.cs");
 exec($City::ScriptPath @ "RealEstate/lotRegistryMenu.cs");
 exec($City::ScriptPath @ "Mayor/mayor.cs");

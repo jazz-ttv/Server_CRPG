@@ -4,12 +4,6 @@
 $City::SpawnPreferences = "Personal Spawn";
 $City::SpawnPreferenceIDs = "Personal";
 
-// if($City::CheckpointIsActive)
-// {
-// 	$City::SpawnPreferences = $City::SpawnPreferences TAB "Checkpoint";
-// 	$City::SpawnPreferenceIDs = $City::SpawnPreferenceIDs TAB "Checkpoint";
-// }
-
 $City::SpawnPreferences = $City::SpawnPreferences TAB "Job Spawn";
 $City::SpawnPreferenceIDs = $City::SpawnPreferenceIDs TAB "Job";
 

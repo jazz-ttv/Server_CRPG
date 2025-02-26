@@ -138,7 +138,7 @@ if(!isObject(CityRPGLumberjackItem))
 	datablock ProjectileData(CityRPGLumberjackProjectile)
 	{
 	projectileShapeName = "base/data/shapes/empty.dts";
-	directDamage        = 15;
+	directDamage        = 0;
 	directDamageType  = $DamageType::CityRPGLumberjack;
 
 	explosion           = CityRPGLumberjackExplosion;
@@ -326,7 +326,7 @@ if(!isObject(CityRPGLumberjackItem))
 		%raycastExplosionProjectile = CityRPGLumberjackProjectile;				//Gun cannot pierce
 		%raycastExplosionPlayerSound = PHitSound;
 		%raycastExplosionBrickSound = WoodHit1Sound;
-		%raycastDirectDamage = 10;
+		%raycastDirectDamage = 0;
 		%raycastDirectDamageType = $DamageType::Axe;
 		%raycaFromMuzzle	= false;
 
@@ -372,7 +372,7 @@ if(!isObject(CityRPGLumberjackItem))
 		%raycastWeaponPierceTargets = "";
 		%raycastExplosionProjectile = CityRPGLumberjackProjectile;				//Gun cannot pierce
 		%raycastExplosionBrickSound = WoodHit1Sound;
-		%raycastDirectDamage = 15;
+		%raycastDirectDamage = 0;
 		%raycastDirectDamageType = $DamageType::CityRPGLumberjack;
 		%raycastFromMuzzle	= false;
 

@@ -138,7 +138,7 @@ if(!isObject(CityRPGPickaxeItem))
 	datablock ProjectileData(CityRPGPickaxeProjectile)
 	{
 	projectileShapeName = "base/data/shapes/empty.dts";
-	directDamage        = 15;
+	directDamage        = 0;
 	directDamageType  = $DamageType::CityRPGPickaxe;
 
 	explosion           = CityRPGPickaxeExplosion;
@@ -325,7 +325,7 @@ if(!isObject(CityRPGPickaxeItem))
 		%raycastExplosionProjectile = CityRPGPickAxeProjectile;				//Gun cannot pierce
 		%raycastExplosionPlayerSound = PHitSound;
 		%raycastExplosionBrickSound = MetalHit1Sound;
-		%raycastDirectDamage = 10;
+		%raycastDirectDamage = 0;
 		%raycastDirectDamageType = $DamageType::STPickAxe;
 		%raycastFromMuzzle	= false;
 
@@ -371,7 +371,7 @@ if(!isObject(CityRPGPickaxeItem))
 		%raycastWeaponPierceTargets = "";
 		%raycastExplosionProjectile = CityRPGPickaxeProjectile;				//Gun cannot pierce
 		%raycastExplosionBrickSound = MetalHit1Sound;
-		%raycastDirectDamage = 15;
+		%raycastDirectDamage = 0;
 		%raycastDirectDamageType = $DamageType::CityRPGPickaxe;
 		%raycastFromMuzzle	= false;
 
