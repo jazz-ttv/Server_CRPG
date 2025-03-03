@@ -3,6 +3,7 @@ $CityRPG::jobs::track = "Police";
 $CityRPG::jobs::index = 4;
 $CityRPG::jobs::title = "";
 $CityRPG::jobs::education = 6;
+$CityRPG::jobs::record = true;
 $CityRPG::jobs::initialInvestment = 3500;
 $CityRPG::jobs::pay = 145;
 

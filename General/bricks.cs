@@ -31,6 +31,7 @@ $CityBrick_Drug = 7;
 // Player info bricks
 exec($City::ScriptPath @ "Bricks/info/atm.cs");
 exec($City::ScriptPath @ "Bricks/slotmachine.cs");
+exec($City::ScriptPath @ "Bricks/teasurechests.cs");
 
 
 // City info bricks

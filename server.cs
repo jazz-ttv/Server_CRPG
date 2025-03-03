@@ -3,7 +3,7 @@
 // ============================================================
 
 // A small hack. Change the display name so the game doesn't show up as "Custom" in the list.
-$GameModeDisplayName = "CRPG Alpha";
+$GameModeDisplayName = "CRPG";
 
 if($server::lan)
 {
@@ -127,6 +127,7 @@ exec($City::GeneralPath @ "chat.cs");
 exec($City::GeneralPath @ "commands.cs");
 exec($City::GeneralPath @ "admin.cs");
 exec($City::GeneralPath @ "spawns.cs");
+exec($City::GeneralPath @ "help.cs");
 
 
 // Modules
@@ -208,11 +209,11 @@ unRegisterOutputEvent("MiniGame", "RespawnAll");
 // ============================================================
 // Additional Requirements
 // ============================================================
-addExtraResource($City::DataPath @ "ui/cash.png");
-addExtraResource($City::DataPath @ "ui/health.png");
-addExtraResource($City::DataPath @ "ui/location.png");
+// addExtraResource($City::DataPath @ "ui/cash.png");
+// addExtraResource($City::DataPath @ "ui/health.png");
+// addExtraResource($City::DataPath @ "ui/location.png");
 addExtraResource($City::DataPath @ "ui/time.png");
-addExtraResource($City::DataPath @ "ui/hunger.png");
+// addExtraResource($City::DataPath @ "ui/hunger.png");
 
 addExtraResource($City::DataPath @ "ui/healthy.png");
 addExtraResource($City::DataPath @ "ui/hurt.png");

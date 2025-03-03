@@ -266,7 +266,7 @@ if(!isObject(CityRPGPickaxeItem))
 
 		stateName[7]			= "AbortCharge2";
 		stateTransitionOnTimeout[7]	= "Ready";
-		stateTimeoutValue[7]		= 0.5;
+		stateTimeoutValue[7]		= 0.4;
 		stateFire[7]			= true;
 		stateSequence[7]		= "Jab2";
 		stateScript[7]			= "onFire";
@@ -275,7 +275,7 @@ if(!isObject(CityRPGPickaxeItem))
 
 		stateName[8]			= "Fire2";
 		stateTransitionOnTimeout[8]	= "Ready";
-		stateTimeoutValue[8]		= 1.0;
+		stateTimeoutValue[8]		= 0.7;
 		stateFire[8]			= true;
 		stateSequence[8]		= "Pick2";
 		stateScript[8]			= "onFireLunge";
@@ -315,7 +315,7 @@ if(!isObject(CityRPGPickaxeItem))
 
 	function CityRPGPickAxeImage::onFire(%this,%obj,%slot)
 	{
-		%raycastWeaponRange = 3;
+		%raycastWeaponRange = 5;
 		%raycastWeaponTargets = $TypeMasks::FxBrickObjectType |	//Targets the weapon can hit: Raycasting Bricks
 		$TypeMasks::PlayerObjectType |	//AI/Players
 		$TypeMasks::StaticObjectType |	//Static Shapes

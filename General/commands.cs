@@ -23,111 +23,111 @@ package CRPG_Commands
 	// ============================================================
 	// Player Commands
 	// ============================================================
-	function serverCmdhelp(%client, %strA, %strB, %strC)
-	{
-		%client.cityLog("/help" SPC %section SPC %term);
+	// function serverCmdhelp(%client, %strA, %strB, %strC)
+	// {
+	// 	%client.cityLog("/help" SPC %section SPC %term);
 
-		switch$(%strA)
-		{
-			case "":
-				messageClient(%client, '', "\c6======\c2 CityRPG Help \c6======");
-				messageClient(%client, '', "\c6Type " @ $c_p @ "/help changes\c6 for changes from CityRPG 4");
-				messageClient(%client, '', "\c6Type " @ $c_p @ "/help commands\c6 to list the commands in the game");
-				messageClient(%client, '', "\c6More: " @ $c_p @ "/help key\c6, " @ $c_p @ "/help drugs\c6, " @ $c_p @ "/help items\c6, " @ $c_p @ "/help economy\c6, " @ $c_p @ "/help zones");
-				messageClient(%client, '', "\c6Even More: " @ $c_p @ "/help slots\c6, " @ $c_p @ "/help scratchers\c6, " @ $c_p @ "/stats");
-			case "changes":
-				messageClient(%client, '', "\c6======\c2 CityRPG Changes \c6======");
-				messageClient(%client, '', "\c3Personal Key\c6 - Everyone spawns with one, see \c3/help key\c6 for more.");
-				messageClient(%client, '', "\c3Bounties\c6 - Use limited baton to get full reward, kill for half.");
-				messageClient(%client, '', "\c3Doors\c6 - Can be opened criminally or legally with a knife, limited baton or a baton. Can be locked with a key.");
-				messageClient(%client, '', "\c3Lumber\c6 - Trees now drop mushrooms, similar to an ores gems.");
-				messageClient(%client, '', "\c3Building\c6 - Costs the City lumber (refunds on brick destroyed), all labor professions get a 50% discount on that cost to the city.");
-				messageClient(%client, '', "\c3Pickpocketing\c6 - It's back! You need a profession with the pickpocket skill and crouch.");
-				messageClient(%client, '', "\c3Much more\c6 - Thanks for coming and trying it out!");
-			case "commands":
-				messageClient(%client, '', "\c6======\c2 CityRPG Commands \c6======");
-				messageClient(%client, '', $c_p @ "/stats\c6 - View your stats");
-				messageClient(%client, '', $c_p @ "/scratchers\c6 - Open the scratchers menu");
-				messageClient(%client, '', $c_p @ "/dropmoney\c6 [amount] - Drop cash on the ground.");
-				messageClient(%client, '', $c_p @ "/giveMoney\c6 [amount] [player] - Give money to another player");
-				messageClient(%client, '', $c_p @ "/giveDrugs\c6 [drug name] [amount] [player] - Give drugs to another player");
-			case "events":
-				messageClient(%client, '', "\c6======\c2 CityRPG Events \c6======");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellFood\c6 [Food] [Markup] - Feeds a player using the automated sales system.");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellItem\c6 [Item] [Markup] - Sells an item using the automated system.");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellServices\c6 [Service] [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "[Service]\c6. Will trigger onTransferSuccess and onTransferDeclined events.");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellScratcher\c6 [Scratcher] [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "[Scratcher]\c6.");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellSlotSpin\c6 [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "1 slot spin\c6. Vendor must have enough bank to cover half highest payout (x250)");
-				messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "doJobTest\c6 [Job] [NoConvicts] - Tests if user's job is [Job]. NoConvicts will fail inmates. Calls onJobTestFail and onJobTestPass");
-			case "key":
-				messageClient(%client, '', "\c6======\c2 CityRPG Key \c6======");
-				messageClient(%client, '', "\c6Everyone spawns with a \c3Personal Key\c6.");
-				messageClient(%client, '', "\c6An example use is locking doors with events.");
-				messageClient(%client, '', "\c6People will your build trust will have permissions on your things with their key.");
-				messageClient(%client, '', "\c6Your key also serves as a way to lock/unlock vehicles.");
-				messageClient(%client, '', "\c6 - \c3[OnKeyMatch] \c6-> Output  - Will do output on key hit if the brick has [_pkey] with no brackets in the name.");
-			case "drugs":
-				messageClient(%client, '', "\c6======\c2 CityRPG Drugs \c6======");
-				messageClient(%client, '', "\c6This CRPG has with farmable/sellable \c3Drug Bricks\c6.");
-				messageClient(%client, '', "\c3Buffs - The criminal job track gets bonuses to all random checks.");
-				messageClient(%client, '', "\c3Buffs - Education level gives bonuses to all random checks.");
-				messageClient(%client, '', "\c3To purchase\c6 - Place a drug brick from the CRPG Tab in the brick selection menu on your lot.");
-				messageClient(%client, '', "\c3To grow\c6 - Click the brick with an empty hand to water it, and let it slowly grow through stages");
-				messageClient(%client, '', "\c3To harvest\c6 - Click the brick with a knife in hand.");
-				messageClient(%client, '', "\c3To sell\c6 - Find a \c3Drug Sell\c6 brick placed around the city.");
-				messageClient(%client, '', "\c3Crimes\c6 - Police can baton and seize your drug bricks, so protect and hide them well.");
-				messageClient(%client, '', "\c3Crimes\c6 - You can also be arrested for carrying drugs, but you will not be marked as criminal.");
-			case "zones":
-				messageClient(%client, '', "\c6======\c2 CityRPG Zones \c6======");
-				messageClient(%client, '', "\c6All lots start at Zone 1.");
-				messageClient(%client, '', "\c6After purchasing a lot you are able to upgrade the Zone.");
-				messageClient(%client, '', "\c6Each Zone increases the build height limit of the lot.");
-				messageClient(%client, '', "\c6Zone 2 pays 50% lot taxes, and Zone 3 pays no taxes.");
-				messageClient(%client, '', "\c6Lots keep their Zone when sold!");
-			case "economy":
-				messageClient(%client, '', "\c6======\c2 CityRPG Economy \c6======");
-				messageClient(%client, '', "\c6The economy goes up and down slightly each day, but can be influenced by players actions.");
-				messageClient(%client, '', "\c6A positive economy can give better resource prices and paychecks.");
-				messageClient(%client, '', "\c6Building, paying taxes, and selling resources all benefit the economy.");
-				messageClient(%client, '', "\c6If the city has a lot of lumber or ore, the prices will go down.");
-				messageClient(%client, '', "\c6The opposite is true though, and the prices go up if the city is low on resources.");
-			case "slots":
-				messageClient(%client, '', "\c6======\c2 CityRPG Slots \c6======");
-				messageClient(%client, '', "\c6Slot Machines can be purchased under the CityRPG tab of bricks.");
-				messageClient(%client, '', "\c6The vendor has the choice of setting the bet amount per spin.");
-				messageClient(%client, '', "\c6Vendors must have sellServices to sell slot spins.");
-				messageClient(%client, '', "\c6See \c3/help events\c6 for more information on the sellSlotSpin event.");
-			case "scratchers":
-				messageClient(%client, '', "\c6======\c2 CityRPG Scratchers \c6======");
-				messageClient(%client, '', "\c6Scratchers are scratch off lottery tickets you can buy from vendors.");
-				messageClient(%client, '', "\c6Do /scratchers to view and scratch off your scratchers.");
-				messageClient(%client, '', "\c6Vendors must have sellServices to sell scratchers.");
-			case "items":
-				messageClient(%client, '', "\c6======\c2 CityRPG Items \c6======");
-				listCityItems(%client);
-			default:
-				messageClient(%client, '', "\c6Unknown help section. Please try again.");
-		}
-	}
+	// 	switch$(%strA)
+	// 	{
+	// 		case "":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Help \c6======");
+	// 			messageClient(%client, '', "\c6Type " @ $c_p @ "/help changes\c6 for changes from CityRPG 4");
+	// 			messageClient(%client, '', "\c6Type " @ $c_p @ "/help commands\c6 to list the commands in the game");
+	// 			messageClient(%client, '', "\c6More: " @ $c_p @ "/help key\c6, " @ $c_p @ "/help drugs\c6, " @ $c_p @ "/help items\c6, " @ $c_p @ "/help economy\c6, " @ $c_p @ "/help zones");
+	// 			messageClient(%client, '', "\c6Even More: " @ $c_p @ "/help slots\c6, " @ $c_p @ "/help scratchers\c6, " @ $c_p @ "/stats");
+	// 		case "changes":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Changes \c6======");
+	// 			messageClient(%client, '', "\c3Personal Key\c6 - Everyone spawns with one, see \c3/help key\c6 for more.");
+	// 			messageClient(%client, '', "\c3Bounties\c6 - Use limited baton to get full reward, kill for half.");
+	// 			messageClient(%client, '', "\c3Doors\c6 - Can be opened criminally or legally with a knife, limited baton or a baton. Can be locked with a key.");
+	// 			messageClient(%client, '', "\c3Lumber\c6 - Trees now drop mushrooms, similar to an ores gems.");
+	// 			messageClient(%client, '', "\c3Building\c6 - Costs the City lumber (refunds on brick destroyed), all labor professions get a 50% discount on that cost to the city.");
+	// 			messageClient(%client, '', "\c3Pickpocketing\c6 - It's back! You need a profession with the pickpocket skill and crouch.");
+	// 			messageClient(%client, '', "\c3Much more\c6 - Thanks for coming and trying it out!");
+	// 		case "commands":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Commands \c6======");
+	// 			messageClient(%client, '', $c_p @ "/stats\c6 - View your stats");
+	// 			messageClient(%client, '', $c_p @ "/scratchers\c6 - Open the scratchers menu");
+	// 			messageClient(%client, '', $c_p @ "/dropmoney\c6 [amount] - Drop cash on the ground.");
+	// 			messageClient(%client, '', $c_p @ "/giveMoney\c6 [amount] [player] - Give money to another player");
+	// 			messageClient(%client, '', $c_p @ "/giveDrugs\c6 [drug name] [amount] [player] - Give drugs to another player");
+	// 		case "events":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Events \c6======");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellFood\c6 [Food] [Markup] - Feeds a player using the automated sales system.");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellItem\c6 [Item] [Markup] - Sells an item using the automated system.");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellServices\c6 [Service] [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "[Service]\c6. Will trigger onTransferSuccess and onTransferDeclined events.");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellScratcher\c6 [Scratcher] [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "[Scratcher]\c6.");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "sellSlotSpin\c6 [Price] - Requests $" @ $c_p @ "[Price]\c6 for " @ $c_p @ "1 slot spin\c6. Vendor must have enough bank to cover half highest payout (x250)");
+	// 			messageClient(%client, '', "\c6 - brick -> " @ $c_p @ "doJobTest\c6 [Job] [NoConvicts] - Tests if user's job is [Job]. NoConvicts will fail inmates. Calls onJobTestFail and onJobTestPass");
+	// 		case "key":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Key \c6======");
+	// 			messageClient(%client, '', "\c6Everyone spawns with a \c3Personal Key\c6.");
+	// 			messageClient(%client, '', "\c6An example use is locking doors with events.");
+	// 			messageClient(%client, '', "\c6People will your build trust will have permissions on your things with their key.");
+	// 			messageClient(%client, '', "\c6Your key also serves as a way to lock/unlock vehicles.");
+	// 			messageClient(%client, '', "\c6 - \c3[OnKeyMatch] \c6-> Output  - Will do output on key hit if the brick has [_pkey] with no brackets in the name.");
+	// 		case "drugs":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Drugs \c6======");
+	// 			messageClient(%client, '', "\c6This CRPG has with farmable/sellable \c3Drug Bricks\c6.");
+	// 			messageClient(%client, '', "\c3Buffs - The criminal job track gets bonuses to all random checks.");
+	// 			messageClient(%client, '', "\c3Buffs - Education level gives bonuses to all random checks.");
+	// 			messageClient(%client, '', "\c3To purchase\c6 - Place a drug brick from the CRPG Tab in the brick selection menu on your lot.");
+	// 			messageClient(%client, '', "\c3To grow\c6 - Click the brick with an empty hand to water it, and let it slowly grow through stages");
+	// 			messageClient(%client, '', "\c3To harvest\c6 - Click the brick with a knife in hand.");
+	// 			messageClient(%client, '', "\c3To sell\c6 - Find a \c3Drug Sell\c6 brick placed around the city.");
+	// 			messageClient(%client, '', "\c3Crimes\c6 - Police can baton and seize your drug bricks, so protect and hide them well.");
+	// 			messageClient(%client, '', "\c3Crimes\c6 - You can also be arrested for carrying drugs, but you will not be marked as criminal.");
+	// 		case "zones":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Zones \c6======");
+	// 			messageClient(%client, '', "\c6All lots start at Zone 1.");
+	// 			messageClient(%client, '', "\c6After purchasing a lot you are able to upgrade the Zone.");
+	// 			messageClient(%client, '', "\c6Each Zone increases the build height limit of the lot.");
+	// 			messageClient(%client, '', "\c6Zone 2 pays 50% lot taxes, and Zone 3 pays no taxes.");
+	// 			messageClient(%client, '', "\c6Lots keep their Zone when sold!");
+	// 		case "economy":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Economy \c6======");
+	// 			messageClient(%client, '', "\c6The economy goes up and down slightly each day, but can be influenced by players actions.");
+	// 			messageClient(%client, '', "\c6A positive economy can give better resource prices and paychecks.");
+	// 			messageClient(%client, '', "\c6Building, paying taxes, and selling resources all benefit the economy.");
+	// 			messageClient(%client, '', "\c6If the city has a lot of lumber or ore, the prices will go down.");
+	// 			messageClient(%client, '', "\c6The opposite is true though, and the prices go up if the city is low on resources.");
+	// 		case "slots":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Slots \c6======");
+	// 			messageClient(%client, '', "\c6Slot Machines can be purchased under the CityRPG tab of bricks.");
+	// 			messageClient(%client, '', "\c6The vendor has the choice of setting the bet amount per spin.");
+	// 			messageClient(%client, '', "\c6Vendors must have sellServices to sell slot spins.");
+	// 			messageClient(%client, '', "\c6See \c3/help events\c6 for more information on the sellSlotSpin event.");
+	// 		case "scratchers":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Scratchers \c6======");
+	// 			messageClient(%client, '', "\c6Scratchers are scratch off lottery tickets you can buy from vendors.");
+	// 			messageClient(%client, '', "\c6Do /scratchers to view and scratch off your scratchers.");
+	// 			messageClient(%client, '', "\c6Vendors must have sellServices to sell scratchers.");
+	// 		case "items":
+	// 			messageClient(%client, '', "\c6======\c2 CityRPG Items \c6======");
+	// 			listCityItems(%client);
+	// 		default:
+	// 			messageClient(%client, '', "\c6Unknown help section. Please try again.");
+	// 	}
+	// }
 
-	function listCityItems(%client)
-	{
-		for(%c = 0; %c <= $City::ItemCount-1; %c++)
-		{
-			%datablock 				= $City::Item::name[%c];
-			%cost 					= $City::Item::price[%c];
-			%itemRestrictionLevel 	= $City::Item::restrictionLevel[%c];
-			if(%itemRestrictionLevel == 0)
-				%itemRestrictionLevel = "T0";
-			else if(%itemRestrictionLevel == 1)
-				%itemRestrictionLevel = "T1";
-			else if(%itemRestrictionLevel == 2)
-				%itemRestrictionLevel = "T2";
+	// function listCityItems(%client)
+	// {
+	// 	for(%c = 0; %c <= $City::ItemCount-1; %c++)
+	// 	{
+	// 		%datablock 				= $City::Item::name[%c];
+	// 		%cost 					= $City::Item::price[%c];
+	// 		%itemRestrictionLevel 	= $City::Item::restrictionLevel[%c];
+	// 		if(%itemRestrictionLevel == 0)
+	// 			%itemRestrictionLevel = "T0";
+	// 		else if(%itemRestrictionLevel == 1)
+	// 			%itemRestrictionLevel = "T1";
+	// 		else if(%itemRestrictionLevel == 2)
+	// 			%itemRestrictionLevel = "T2";
 			
-			if(strPos(%datablock.uiName, "Ammo") == -1)
-				messageClient(%client, '', "\c6" @ %datablock.uiname @ $c_s @ " - $" @ $c_p @ %cost @ "\c6 - " @ %itemRestrictionLevel);
-		}
-	}
+	// 		if(strPos(%datablock.uiName, "Ammo") == -1)
+	// 			messageClient(%client, '', "\c6" @ %datablock.uiname @ $c_s @ " - $" @ $c_p @ %cost @ "\c6 - " @ %itemRestrictionLevel);
+	// 	}
+	// }
 
 	function serverCmdYes(%client)
 	{
@@ -640,39 +640,39 @@ package CRPG_Commands
 			%string = %string @ "\n" @ "Criminal record:" SPC (getWord(City.get(%target.bl_id, "jaildata"), 0) ? "Yes" : "No");
 
 			// Lots Owned
-			if(%lotsOwned = getWordCount($City::Cache::LotsOwnedBy[%target.bl_id]) > 0)
-				%string = %string @ "\n" @ "Lots owned:" SPC ((%lotsOwned > 0) ? %lotsOwned : 0) @ "/" @ $Pref::Server::City::RealEstate::maxLots;
+			//if(%lotsOwned = getWordCount($City::Cache::LotsOwnedBy[%target.bl_id]) > 0)
+			%string = %string @ "\n" @ "Lots owned:" SPC ((%lotsOwned > 0) ? %lotsOwned : 0) @ "/" @ $Pref::Server::City::RealEstate::maxLots;
 			
 			// Lots visited
 			%lotsVisited = getWordCount(City.get(%target.bl_id, "lotsvisited"));
 			%string = %string @ "\nLots visited: " @ ((City.get(%target.bl_id, "lotsvisited") == -1) ? 0 : %lotsVisited);
 
 			// Resources
-			%lumber = City.get(%client.bl_id, "lumber");
-			%ore = City.get(%client.bl_id, "ore");
-			%fish = City.get(%client.bl_id, "fish");
-			if(%lumber > 0 || %ore > 0 || %fish > 0)
-				%string = %string @ "\n\n" @ "<font:Arial Bold:18>Resources<font:Arial:16>";
-			if(%lumber > 0)
-				%string = %string @ "\n" @ "Lumber:" SPC %lumber;
-			if(%ore > 0)
-				%string = %string @ "\n" @ "Ore:" SPC %ore;
-			if(%fish > 0)
-				%string = %string @ "\n" @ "Fish:" SPC %fish;
+			%lumber = City.get(%target.bl_id, "lumber");
+			%ore = City.get(%target.bl_id, "ore");
+			%fish = City.get(%target.bl_id, "fish");
+			%string = %string @ "\n\n" @ "<font:Arial Bold:18>Resources<font:Arial:16>";
+			%string = %string @ "\n" @ "Lumber:" SPC (%lumber > 0 ? %lumber : 0) @ " | Ore:" SPC (%ore > 0 ? %ore : 0) @ " | Fish:" SPC (%fish > 0 ? %fish : 0);
+			// %string = %string @ "\n" @ "Ore:" SPC (%ore > 0 ? %ore : 0);
+			// %string = %string @ "\n" @ "Fish:" SPC (%fish > 0 ? %fish : 0);
 
 			// Drugs
 			if(isPackage(CRPG_Drugs))
 			{
-				%drugCount = %target.getDrugCount();
-				if(%drugCount > 0 || %target.getDrugBrickCount() > 0)
-				{
+				// %drugCount = %target.getDrugCount();
+				// if(%drugCount > 0 || %target.getDrugBrickCount() > 0)
+				// {
 					%string = %string @ "\n\n" @ "<font:Arial Bold:18>Drugs<font:Arial:16>";
-					%string = %string @ "\n" @ "Bricks Owned: " @ ((%target.getDrugBrickCount() > 0) ? %target.getDrugBrickCount() : 0) @ "/" @ $Pref::Server::City::Drugs::DrugLimit @ " Max";
-					if(City.get(%target.bl_id, "Brickamphetamine") > 0) { %string = %string @ "\n" @ "Brickamphetamine: " @ City.get(%target.bl_id, "Brickamphetamine"); }
-					if(City.get(%target.bl_id, "BrickSalts") > 0) { %string = %string @ "\n" @ "BrickSalts: " @ City.get(%target.bl_id, "BrickSalts"); }
-					if(City.get(%target.bl_id, "MagicBricks") > 0) { %string = %string @ "\n" @ "MagicBricks: " @ City.get(%target.bl_id, "MagicBricks"); }
-					if(City.get(%target.bl_id, "Cannabricks") > 0) { %string = %string @ "\n" @ "Cannabricks: " @ City.get(%target.bl_id, "Cannabricks"); }
-				}
+					%string = %string @ "\n" @ "Bricks Placed: " @ ((%target.getDrugBrickCount() > 0) ? %target.getDrugBrickCount() : 0) @ "/" @ $Pref::Server::City::Drugs::DrugLimit @ " Max";
+					%brickamphetamine = City.get(%target.bl_id, "Brickamphetamine");
+					%string = %string @ "\n" @ "Brickamphetamine: " @ (%brickamphetamine > 0 ? %brickamphetamine : 0);
+					%bricksalts = City.get(%target.bl_id, "BrickSalts");
+					%string = %string @ "\n" @ "Bricksalts: " @ (%bricksalts > 0 ? %bricksalts : 0);
+					%magicbricks = City.get(%target.bl_id, "MagicBricks");
+					%string = %string @ "\n" @ "Magicbricks: " @ (%magicbricks > 0 ? %magicbricks : 0);
+					%cannabricks = City.get(%target.bl_id, "Cannabricks");
+					%string = %string @ "\n" @ "Cannabricks: " @ (%cannabricks > 0 ? %cannabricks : 0);
+				// }
 			}
 
 			%client.extendedMessageBoxOK("Stats for " @ %target.name, %string);

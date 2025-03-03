@@ -4,6 +4,7 @@
 
 function City_ServerTick(%brick)
 {
+	%time = getSimTime();
 	CalendarSO.date++;
 	CityRPGData.lastTickOn = $Sim::Time;
 
@@ -22,6 +23,7 @@ function City_ServerTick(%brick)
 	City_Build_Spawns();
 	City_AdjustEcon();
 	City_MayorTick();
+	City_RespawnPoliceVehicles();
 
 	messageAll('', $c_s @ " - The current economy is " @ City_getEconStr());
 	messageAll('', $c_s @ " - The city has " @ mFloor(CitySO.Lumber) @ $c_p @ " Lumber " @ $c_s @ ", " @ mFloor(CitySO.Ore) @ $c_p @ " Ore" @ $c_s @ " and " @ mFloor(CitySO.Fish) @ $c_p @ " Fish");
@@ -31,8 +33,8 @@ function City_ServerTick(%brick)
 		City_ClientTick(0);
 		CityRPGData.save();
 	}
-	else
-		cityDebug(1, "No Clients online - skipping Client_Tick");
+	// else
+	// 	cityDebug(1, "No Clients online - skipping Client_Tick");
 
 	CityRPGData.scheduleTick = schedule((60000 * $Pref::Server::City::General::TickSpeed), false, "City_ServerTick");
 
@@ -42,7 +44,7 @@ function City_ServerTick(%brick)
 	//CityLots_EnableSaver();
 	CityLotRegistry.save();
 
-	cityDebug(1, "City: Server tick complete");
+	cityDebug(1, "City: Server tick complete in " @ mFloatLength(((getSimTime() - %time) / 1000), 2) @ " seconds.");
 }
 
 function City_ClientTick(%loop)
@@ -111,7 +113,7 @@ function City_ClientTick(%loop)
 						}
 					}
 
-					%econAdd = mFloor(($City::Economics::Condition / 100) * %client.getSalary());
+					%econAdd = mFloor((($City::Economics::Condition / 100) * %client.getSalary()) / 2);
 					%sum = mFloor(%client.getSalary() + %econAdd);
 					if(City.get(%client.bl_id, "hunger") < 3)
 					{

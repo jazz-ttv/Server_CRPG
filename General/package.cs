@@ -201,9 +201,12 @@ package CRPG_MainPackage
 			{
 				// Intro message
 				// Beware of the 255-character packet limit.
-				schedule(4000, 0, commandToClient, %client, 'messageBoxOK', "Welcome to CityRPG",
-									"CRPG is in Alpha testing. You may encounter bugs and incomplete features along the way."
-									@ "<br><br>Have fun!");
+				%client.schedule(4000, extendedMessageBoxOK, "Welcome to CRPG",
+									"<just:center><font:Arial:20>This CRPG uses a CenterPrint menu system that you can use with your brick building controls.  " @
+									"<font:Arial:18>Try using your cancel brick button to bring up the player menu to try it out!" @
+									"<br><br><font:Arial:20>Be sure to check out the /help and /stats commands" @
+									// "<br>CRPG is in Beta testing. You may encounter bugs and incomplete features along the way." @
+									"<br>Have fun!");
 			}
 		}
 		else
@@ -268,7 +271,7 @@ package CRPG_MainPackage
 
 		if(City.get(%client.bl_id, "jobid") $= "")
 		{
-			schedule(1, 0, messageClient, %client, '', $c_s @ "Thanks for joining the " @ $c_p @ "CRPG" @ $c_s @ " playtest.");
+			schedule(1, 0, messageClient, %client, '', $c_s @ "Welcome to " @ $c_p @ "CRPG");
 		}
 	}
 

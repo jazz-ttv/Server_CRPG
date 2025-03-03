@@ -15,7 +15,7 @@ function CRPG_RegisterPrefsToRtb()
 {
     RTB_registerPref("Debugger Enabled",            "CRPG| General",   "$Pref::Server::City::General::Debug",                   "bool",                 "Server_CRPG", true,        false, false, "");
 	RTB_registerPref("Logger Enabled",              "CRPG| General",   "$Pref::Server::City::General::loggerEnabled",           "bool",                 "Server_CRPG", false,       false, false, "");
-	RTB_registerPref("Intro Message Disable",       "CRPG| General",   "$Pref::Server::City::General::DisableIntroMessage",     "bool",                 "Server_CRPG", false,       false, false, "");
+	//RTB_registerPref("Intro Message Disable",       "CRPG| General",   "$Pref::Server::City::General::DisableIntroMessage",     "bool",                 "Server_CRPG", false,       false, false, "");
 
     RTB_registerPref("Tick Speed",                  "CRPG| General",   "$Pref::Server::City::General::TickSpeed",               "int 1 30",             "Server_CRPG", 15,          false, false, "");
     RTB_registerPref("City Name",                   "CRPG| General",   "$Pref::Server::City::General::Name",                    "string 12",            "Server_CRPG", "Blockadia", false, false, "");
@@ -50,7 +50,7 @@ function CRPG_ApplyDefaultPrefValues()
     $Pref::Server::City::General::DisableHungerTumble                               = false;
     $Pref::Server::City::General::AdminsAlwaysMonitorChat                           = false;
 
-    $Pref::Server::City::General::StartingCash                                      = 750;
+    $Pref::Server::City::General::StartingCash                                      = 150;
     $Pref::Server::City::General::ClockOffset                                       = 6;
 
     $Pref::Server::City::RealEstate::maxLots                                        = 5;

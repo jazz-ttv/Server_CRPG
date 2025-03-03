@@ -1,40 +1,53 @@
 function getJobStr(%jobID)
 {
 	%job = JobSO.job[%jobID];
-	if(%job.laborer){ %jobStr = "Building is 50% cost \n"; }
-	if(%job.sellFood){ %canSell = %canSell @ "food "; }
-	if(%job.sellClothes){ %canSell = %canSell @ "clothes "; }
-	if(%job.sellServices){ %canSell = %canSell @ "services "; }
-	if(%job.sellItemsLevel == 1){ %canSell = %canSell @ "T1items "; }
-	if(%job.sellItemsLevel == 2){ %canSell = %canSell @ "T2items "; }
-	%licenses = buildLicenseStr(%canSell,"and");
-	if(%licenses !$= ""){ %jobStr = %jobStr SPC "Can sell" SPC %licenses @ "\n"; }
-	if(%job.law){ %jobStr = %jobStr SPC "Can arrest wanted players \n"; }
-	if(%job.canRaid){ %jobStr = %jobStr SPC "Can use baton to open doors \n"; }
-	//if(%job.usePoliceCars){ %jobStr = %jobStr SPC "Can drive police vehicles \n"; }
-	if(%job.crime){ %jobStr = %jobStr SPC "Can pickpocket cash \n"; }
-	if(%job.canLockpick){ %jobStr = %jobStr SPC "Can use knife to open doors \n"; }
-	//if(%job.useCrimeCars){ %jobStr = %jobStr SPC "Can drive criminal vehicles \n"; }
-	if(%job.bountyOffer && !%job.bountyClaim){ %jobStr = %jobStr SPC "Can place bounties \n"; }
-	if(%job.bountyClaim && !%job.bountyOffer){ %jobStr = %jobStr SPC "Can claim bounties \n"; }
-	if(%job.bountyClaim && %job.bountyOffer){ %jobStr = %jobStr SPC "Can place AND claim bounties \n"; }
-	if(%job.canPardon && !%job.canErase){ %jobStr = %jobStr SPC "Can pardon players from jail\n"; }
-	if(%job.canErase && !%job.canPardon){ %jobStr = %jobStr SPC "Can erase players criminal records\n"; }
-	if(%job.canErase && %job.canPardon){ %jobStr = %jobStr SPC "Can pardon AND erase \n"; }
-	if(getToolStr(%jobID) !$= "") { %jobStr = %jobStr SPC "Tools: " @ getToolStr(%jobID) @ "\n"; }
 
-	return ltrim(%jobStr);
+	%jobStr = 									"<just:center><font:Arial:15>" @ %job.helpline;
+	%jobStr = 									%jobStr @ "<br><just:left><font:Arial:16>";
+	%jobStr = 									%jobStr @ "<br>Application Fee: $" @ %job.invest;
+	%jobStr = 									%jobStr @ "<br>Required Education: " @ %job.education;
+	%jobStr = 									%jobStr @ "<br>Clean Record?: " @ (%job.record == 1 ? "Yes" : "No");
+	%jobStr = 									%jobStr @ "<br>Salary: $" @ %job.pay;
+	if(getToolStr(%jobID) !$= "") { 			%jobStr = %jobStr @ "<br>Tools: " @ getToolStr(%jobID); }
+	%jobStr = 									%jobStr @ "<br><br><just:center>Attributes:";
+	if(%job.laborer){ 							%jobStr = %jobStr @ "<br>Building costs 50% less city lumber"; }
+	if(getSellStr(%jobID) !$= "") { 			%jobStr = %jobStr @ "<br>" @ getSellStr(%jobID); }
+	if(%job.law){ 								%jobStr = %jobStr @ "<br>Can arrest wanted players"; }
+	if(%job.canRaid){ 							%jobStr = %jobStr @ "<br>Can use baton to open doors"; }
+	//if(%job.usePoliceCars){ 					%jobStr = %jobStr SPC "Can drive police vehicles \n"; }
+	if(%job.crime){ 							%jobStr = %jobStr @ "<br>Can pickpocket cash while crouching"; }
+	if(%job.canLockpick){ 						%jobStr = %jobStr @ "<br>Can use lockpick to open doors"; }
+	//if(%job.useCrimeCars){ 					%jobStr = %jobStr SPC "Can drive criminal vehicles \n"; }
+	if(%job.bountyOffer && !%job.bountyClaim){ 	%jobStr = %jobStr @ "<br>Can place cash bounties"; }
+	if(%job.bountyClaim && !%job.bountyOffer){ 	%jobStr = %jobStr @ "<br>Can claim cash bounties"; }
+	if(%job.bountyClaim && %job.bountyOffer){ 	%jobStr = %jobStr @ "<br>Can place AND claim cash bounties"; }
+	if(%job.canPardon && !%job.canErase){ 		%jobStr = %jobStr @ "<br>Can pardon players from jail"; }
+	if(%job.canErase && !%job.canPardon){		%jobStr = %jobStr @ "<br>Can erase players criminal records"; }
+	if(%job.canErase && %job.canPardon){ 		%jobStr = %jobStr @ "<br>Can pardon AND erase criminal records"; }
+
+	return %jobStr;
 }
 
 function getToolStr(%jobID)
 {
 	%job = JobSO.job[%jobID];
-	for(%a = 0; %a < getFieldCount(%job.tools); %a++)
+	for(%a = 0; %a < getWordCount(%job.tools); %a++)
 	{
-		%toolName = getField(%job.tools, %a);
+		%toolName = getWord(%job.tools, %a);
 		%toolStr = %toolStr SPC nameToID(%toolName).uiName;
 	}
 	return ltrim(%toolStr);
+}
+
+function getSellStr(%jobID)
+{
+	%job = JobSO.job[%jobID];
+	if(%job.sellFood){ %str = %str @ "Food "; }
+	if(%job.sellClothes){ %str = %str @ "Clothes "; }
+	if(%job.sellServices){ %str = %str @ "Services "; }
+	if(%job.sellItemsLevel){ %str = %str @ "Tier " @ %job.sellItemsLevel @ " Items "; }
+	if(%str $= ""){ return; }
+	return "Can sell: " @ trim(%str);
 }
 // ============================================================
 // Brick Data
@@ -67,7 +80,6 @@ function CityMenu_Jobs(%client, %brick)
 {
 	%client.cityMenuClose(1);
 	//%client.cityMenuMessage("\c6Your current job is" @ $c_p SPC %client.getJobSO().name @ "\c6 with an income of " @ $c_p @ "$" @ %client.getJobSO().pay @ "\c6.");
-
 	%client.cityMenuOpen($City::Menu::JobsBaseTxt, $City::Menu::JobsBaseFunc, %brick, "", 0, 1, $Pref::Server::City::General::Name @ " Employment Office");
 }
 
@@ -111,13 +123,7 @@ function servercmdApplyForJob(%client)
 function servercmdViewJobInfoPrimary(%client)
 {
 	%job = JobSO.job[%client.lastViewedJob];
-	%client.extendedMessageBoxYesNo("Job Application : " @ %job.name,  
-		"<just:center>" @ %job.helpline @
-		"<br><br><just:left>" @ getJobStr(%job.ID) @
-		"<br> Application Fee: $" @ %job.invest @
-		"<br> Required Education: " @ %job.education @
-		"<br> Salary: $" @ %job.pay @
-		"<br><br><just:center>No to exit | Yes to apply",'ApplyForJob');
+	%client.extendedMessageBoxYesNo("Job Application : " @ %job.name, getJobStr(%job.ID) @ "<br><br><just:center>No to exit | Yes to apply", 'ApplyForJob');
 }
 
 function CityMenu_Jobs_List(%client, %input, %brick)

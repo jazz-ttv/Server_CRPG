@@ -378,7 +378,7 @@ function reelBobber(%bobber)
 			{
 				%spot = %spot @ getSubStr(%bobber.nearestFishingSpot.getName(), 1, 1);
 			}
-			%amt = getRandom(1, 5);
+			%amt = getRandom(1 + City.get(%client.bl_id, "education"), 5 + City.get(%client.bl_id, "education"));
 			City.add(%client.bl_id, "fish", %amt);
 			%client.centerPrint("<br><br><just:right><font:Arial Bold:32>" @ $c_s @ "+" @ %amt @ " <br><just:right><font:Arial:22> " @ $c_s @ City.get(%client.bl_id, "fish") @ $c_p @ " Total Fish", 10);
 

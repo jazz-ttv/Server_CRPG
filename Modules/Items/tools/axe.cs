@@ -267,7 +267,7 @@ if(!isObject(CityRPGLumberjackItem))
 
 		stateName[7]			= "AbortCharge2";
 		stateTransitionOnTimeout[7]	= "Ready";
-		stateTimeoutValue[7]		= 0.6;
+		stateTimeoutValue[7]		= 0.4;
 		stateFire[7]			= true;
 		stateSequence[7]		= "Strike2";
 		stateScript[7]			= "onFireCut";
@@ -276,7 +276,7 @@ if(!isObject(CityRPGLumberjackItem))
 
 		stateName[8]			= "Fire2";
 		stateTransitionOnTimeout[8]	= "Ready";
-		stateTimeoutValue[8]		= 0.8;
+		stateTimeoutValue[8]		= 0.6;
 		stateFire[8]			= true;
 		stateSequence[8]		= "Chop2";
 		stateScript[8]			= "onFireLunge";
@@ -316,7 +316,7 @@ if(!isObject(CityRPGLumberjackItem))
 
 	function CityRPGLumberjackImage::onFire(%this,%obj,%slot)
 	{
-		%raycastWeaponRange = 3;
+		%raycastWeaponRange = 5;
 		%raycastWeaponTargets = $TypeMasks::FxBrickObjectType |	//Targets the weapon can hit: Raycasting Bricks
 		$TypeMasks::PlayerObjectType |	//AI/Players
 		$TypeMasks::StaticObjectType |	//Static Shapes

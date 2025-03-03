@@ -65,7 +65,7 @@ function City_AdjustEcon()
 {
 	CitySO.Lumber = mCeil(mClamp(CitySO.Lumber,0,$Pref::Server::City::Economics::MaxLumber) * 0.98);
 	CitySO.Ore = mCeil(mClamp(CitySO.Ore,0,$Pref::Server::City::Economics::MaxOre) * 0.98);
-	CitySO.Fish = mCeil(mClamp(CitySO.Fish,0,$Pref::Server::City::Economics::MaxFish) * 0.98);
+	CitySO.Fish = mCeil(mClamp(CitySO.Fish,0,$Pref::Server::City::Economics::MaxFish) * 0.65);
 
 	%oldEcon = $City::Economics::Condition;
 	%target = $Pref::Server::City::Economics::Weight;
@@ -216,6 +216,35 @@ function City_GetMostWanted()
 	}
 
 	return (isObject(%mostWanted) ? %mostWanted : 0);
+}
+
+function City_RespawnPoliceVehicles()
+{
+    %mbgc = mainBrickGroup.getCount();
+    for(%bgi;%bgi<%mbgc;%bgi++)
+    {
+      %bg = mainBrickGroup.getObject(%bgi);
+      %bgc = %bg.getCount();
+      for(%bi;%bi<%bgc;%bi++)
+      {
+        %b = %bg.getObject(%bi);
+        if(isObject(%b) && %b.isPlanted)
+        {
+          if(%b.getDatablock().getName() $= "CityRPGPoliceVehicleData")
+          {
+            if(isObject(%b.vehicle))
+            {
+              if(!isPlayerInVehicle(%b.vehicle))
+              {
+                %b.vehicle.delete();
+                %b.spawnVehicle();
+              }
+            }
+          }
+        }
+      }
+      %bi=0;
+    }
 }
 
 function City_isLegalAttack(%atkr, %vctm)

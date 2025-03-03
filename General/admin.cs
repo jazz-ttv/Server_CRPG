@@ -633,31 +633,31 @@ function serverCmdRespawnPoliceVehicles(%client)
   if(%client.isAdmin)
   {
     messageAll('', '%1%2\c5 respawned all police vehicles.', $c_p, %client.name);
-    %mbgc = mainBrickGroup.getCount();
-    for(%bgi;%bgi<%mbgc;%bgi++)
-    {
-      %bg = mainBrickGroup.getObject(%bgi);
-      %bgc = %bg.getCount();
-      for(%bi;%bi<%bgc;%bi++)
-      {
-        %b = %bg.getObject(%bi);
-        if(isObject(%b) && %b.isPlanted)
-        {
-          if(%b.getDatablock().getName() $= "CityRPGPoliceVehicleData")
-          {
-            if(isObject(%b.vehicle))
-            {
-              if(!isPlayerInVehicle(%b.vehicle))
-              {
-                %b.vehicle.delete();
-                %b.spawnVehicle();
-              }
-            }
-          }
-        }
-      }
-      %bi=0;
-    }
+    City_RespawnPoliceVehicles();
+  }
+}
+
+function serverCmdtoggleDayCycle(%client)
+{
+  if(!%client.isAdmin)
+    return;
+
+  if($DayCycleEnabled == 1)
+  {
+    $DayCycleEnabled = 0;
+    DayCycle.setEnabled(0);
+    messageAll('', "\c5Day Cycle Disabled.");
+  }
+  else
+  {
+    DayCycle.setEnabled(1);
+    loadDayCycle("Add-Ons/DayCycle_Moderate/Moderate.daycycle");
+    DayCycle.setDayLength($Pref::Server::City::General::TickSpeed * 60);
+    
+    %curr = $Sim::Time / ($Pref::Server::City::General::TickSpeed * 60);
+    DayCycle.setDayOffset(3000 - (%curr - mFloor(%curr)));
+    $DayCycleEnabled = 1;
+    messageAll('', "\c5Day Cycle Enabled.");
   }
 }
 

@@ -31,7 +31,7 @@ function City_Init()
 			AddDamageType("Starvation", '%1 starved', '%1 starved', 0.5, 0);
 
 		// Since the active values change so often, we'll re-attempt to add them each time.
-		%newRegistry.addValue("bank", 0);
+		%newRegistry.addValue("bank", "0");
 		%newRegistry.addValue("bounty", "0");
 		%newRegistry.addValue("demerits", "0");
 		%newRegistry.addValue("education", "0");
@@ -96,6 +96,7 @@ function City_Init()
 	}
 
 	City_MayorTick();
+	City_AdjustEcon();
 
 	activatePackage("CRPG_Overrides");
 

@@ -111,5 +111,5 @@ function fxDTSBrick::onMine(%this, %client)
 		}
 	}
 	else if(%this.totalHits == 0)
-		%client.centerPrint("<br><just:right><font:Arial:22>" @ $c_s @ "Resource" @ $c_p @ "empty", 3);
+		%client.centerPrint("<br><just:right><font:Arial:22>" @ $c_s @ "Resource:" @ $c_p @ " empty", 3);
 }

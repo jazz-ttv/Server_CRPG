@@ -69,6 +69,7 @@ function JobSO::createJob(%so, %file)
 		index					 = $CityRPG::jobs::index;
 		title					 = $CityRPG::jobs::title;
 		education				 = $CityRPG::jobs::education;
+		record 					 = $CityRPG::jobs::record;
 		invest					 = $CityRPG::jobs::initialInvestment;
 		pay						 = $CityRPG::jobs::pay;
 
@@ -244,42 +245,43 @@ function GameConnection::setCityJob(%client, %jobID, %force, %silent)
 
 	if(!%force)
 	{
+		%msg = "<font:Arial Bold:18>Job Application: <color:ff0000>Denied<color:000000>\n<font:Arial:16>";
 		%jobEligible = 1;
 
 		if(%jobID $= City.get(%client.bl_id, "jobid"))
 		{
-			messageClient(%client, '', "\c6- You are already" SPC City_DetectVowel(%jobObject.name) SPC $c_p @ %jobObject.name @ "\c6!");
+			%msg = %msg @ "\nYou are already" SPC City_DetectVowel(%jobObject.name) SPC %jobObject.name @ "!";
 			%jobEligible = 0;
 		}
 
-		if(%jobObject.law && getWord(City.get(%client.bl_id, "jaildata"), 0) == 1)
+		if(%jobObject.record && getWord(City.get(%client.bl_id, "jaildata"), 0) == 1)
 		{
-			messageClient(%client, '', "\c6- You must have a clean record to become" SPC City_DetectVowel(%jobObject.name) SPC $c_p @ %jobObject.name @ "\c6.");
+			%msg = %msg @ "\nYou must have a clean record.";
 			%jobEligible = 0;
 		}
 
 		if(%jobObject.adminonly == 1 && !%client.isAdmin)
 		{
-			messageClient(%client, '', "\c6- You cannot directly sign up to become" SPC City_DetectVowel(%jobObject.name) SPC %jobObject.name @ "\c6.");
+			%msg = %msg @ "\nYou cannot directly sign up to become" SPC City_DetectVowel(%jobObject.name) SPC %jobObject.name @ ".";
 			%jobEligible = 0;
 		}
 
 		if(City.get(%client.bl_id, "money") < %jobObject.invest)
 		{
-			messageClient(%client, '', "\c6- It costs " @ $c_p @ "$" @ %jobObject.invest SPC "\c6to become" SPC City_DetectVowel(%jobObject.name) SPC %jobObject.name @ "\c6.");
+			%msg = %msg @ "\nIt costs $" @ %jobObject.invest @ ".";
 			%jobEligible = 0;
 		}
 
 		if(City.get(%client.bl_id, "education") < %jobObject.education)
 		{
-			messageClient(%client, '', "\c6- You need to reach an education level of " @ $c_p @ %jobObject.education @ "\c6 to become" SPC City_DetectVowel(%jobObject.name) SPC %jobObject.name @ "\c6.");
+			%msg = %msg @ "\nYou need an education level of " @ %jobObject.education @ ".";
 			%jobEligible = 0;
 		}
 
 		// Return if the player is not eligible.
 		if(!%jobEligible)
 		{
-			messageClient(%client, '', "\c6Job Application: \c0Denied");
+			%client.extendedMessageBoxOK("Job Application: " @ %jobObject.name, trim(%msg));
 			return 0;
 		}
 

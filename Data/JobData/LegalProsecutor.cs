@@ -3,12 +3,13 @@ $CityRPG::jobs::track = "Legal";
 $CityRPG::jobs::index = 4;
 $CityRPG::jobs::title = "";
 $CityRPG::jobs::education = 8;
+$CityRPG::jobs::record = false;
 $CityRPG::jobs::initialInvestment = 3500;
 $CityRPG::jobs::pay = 135;
 
 $CityRPG::jobs::labor = false;
 
-$CityRPG::jobs::tools = "";
+$CityRPG::jobs::tools = "CityRPGLBItem";
 $CityRPG::jobs::datablock = Player9SlotPlayer;
 
 $CityRPG::jobs::sellFood = false;

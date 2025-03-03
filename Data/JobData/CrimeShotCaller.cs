@@ -3,12 +3,13 @@ $CityRPG::jobs::track = "Crime";
 $CityRPG::jobs::index = 3;
 $CityRPG::jobs::title = "";
 $CityRPG::jobs::education = 6;
+$CityRPG::jobs::record = false;
 $CityRPG::jobs::initialInvestment = 2500;
 $CityRPG::jobs::pay = 95;
 
 $CityRPG::jobs::labor = false;
 
-$CityRPG::jobs::tools = "knifeItem";
+$CityRPG::jobs::tools = "knifeItem lockPickItem";
 $CityRPG::jobs::datablock = Player8SlotPlayer;
 
 $CityRPG::jobs::sellFood = false;

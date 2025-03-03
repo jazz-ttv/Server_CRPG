@@ -3,6 +3,7 @@ $CityRPG::jobs::track = "Business";
 $CityRPG::jobs::index = 1;
 $CityRPG::jobs::title = "";
 $CityRPG::jobs::education = 2;
+$CityRPG::jobs::record = false;
 $CityRPG::jobs::initialInvestment = 250;
 $CityRPG::jobs::pay = 45;
 
@@ -12,9 +13,9 @@ $CityRPG::jobs::tools = "";
 $CityRPG::jobs::datablock = Player6SlotPlayer;
 
 $CityRPG::jobs::sellFood = true;
-$CityRPG::jobs::sellClothes = true;
-$CityRPG::jobs::sellServices = true;
-$CityRPG::jobs::sellRestrictedItemsLevel = 0;
+$CityRPG::jobs::sellClothes = false;
+$CityRPG::jobs::sellServices = false;
+$CityRPG::jobs::sellRestrictedItemsLevel = 1;
 
 $CityRPG::jobs::law = false;
 $CityRPG::jobs::canRaid = false;
