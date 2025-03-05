@@ -60,7 +60,10 @@ function CityMenu_Resources(%client, %brick)
 
 function CityMenu_SellOre(%client)
 {
-	%payout = mCeil(City.get(%client.bl_id, "ore") * $City::Economics::OreValue);
+	%ore = City.get(%client.bl_id, "ore");
+	%payout = mCeil(%ore * $City::Economics::OreValue);
+	City_InfluenceEcon(%ore / 2);
+	CitySO.ore += %ore;
 	City.add(%client.bl_id, "money", %payout);
 	City.set(%client.bl_id, "ore", "0");
 	%client.cityMenuMessage("\c6You have sold all of your ore for $" @ $c_p @ %payout);
@@ -71,10 +74,14 @@ function CityMenu_SellOre(%client)
 
 function CityMenu_SellLumber(%client)
 {
-	%payout = mCeil(City.get(%client.bl_id, "lumber") * $City::Economics::LumberValue);
+	%lumber = City.get(%client.bl_id, "lumber");
+	%payout = mCeil(%lumber * $City::Economics::LumberValue);
+	City_InfluenceEcon(%lumber / 2);
+	CitySO.lumber += %lumber;
 	City.add(%client.bl_id, "money", %payout);
 	City.set(%client.bl_id, "lumber", "0");
 	%client.cityMenuMessage("\c6You have sold all of your lumber for $" @ $c_p @ %payout);
+	
 	%client.cityLog("Lumber sell for " @ %payout);
 	%client.cityMenuClose();
 	%client.refreshData();
@@ -82,10 +89,14 @@ function CityMenu_SellLumber(%client)
 
 function CityMenu_SellFish(%client)
 {
-	%payout = mCeil(City.get(%client.bl_id, "fish") * $City::Economics::FishValue);
+	%fish = City.get(%client.bl_id, "fish");
+	%payout = mCeil(%fish * $City::Economics::FishValue);
+	City_InfluenceEcon(%fish / 2);
+	CitySO.fish += %fish;
 	City.add(%client.bl_id, "money", %payout);
 	City.set(%client.bl_id, "fish", "0");
 	%client.cityMenuMessage("\c6You have sold all of your fish for $" @ $c_p @ %payout);
+	
 	%client.cityLog("Fish sell for " @ %payout);
 	%client.cityMenuClose();
 	%client.refreshData();

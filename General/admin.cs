@@ -637,28 +637,46 @@ function serverCmdRespawnPoliceVehicles(%client)
   }
 }
 
+$Debug::DayOffset = 0;
 function serverCmdtoggleDayCycle(%client)
 {
-  if(!%client.isAdmin)
-    return;
+   if (!%client.isAdmin)
+      return;
 
-  if($DayCycleEnabled == 1)
-  {
-    $DayCycleEnabled = 0;
-    DayCycle.setEnabled(0);
-    messageAll('', "\c5Day Cycle Disabled.");
-  }
-  else
-  {
-    DayCycle.setEnabled(1);
-    loadDayCycle("Add-Ons/DayCycle_Moderate/Moderate.daycycle");
-    DayCycle.setDayLength($Pref::Server::City::General::TickSpeed * 60);
-    
-    %curr = $Sim::Time / ($Pref::Server::City::General::TickSpeed * 60);
-    DayCycle.setDayOffset(3000 - (%curr - mFloor(%curr)));
-    $DayCycleEnabled = 1;
-    messageAll('', "\c5Day Cycle Enabled.");
-  }
+   if ($DayCycleEnabled == 1)
+   {
+      $DayCycleEnabled = 0;
+      DayCycle.setEnabled(0);
+      messageAll('', "\c5Day Cycle Disabled.");
+   }
+   else
+   {
+      DayCycle.setEnabled(1);
+      loadDayCycle("Add-Ons/DayCycle_Moderate/Moderate.daycycle");
+
+      // 1) Set day length (in real seconds) to TickSpeed * 60:
+      %dayLengthSec = $Pref::Server::City::General::TickSpeed * 60;
+      DayCycle.setDayLength(%dayLengthSec);
+
+      // 2) Calculate how many seconds have passed in our city clock
+      %currTime = getSimTime();                // milliseconds
+      %citySimTime = %currTime - $City::ClockStart;
+      %secondsElapsed = (%citySimTime / 1000) % %dayLengthSec;
+
+      // 3) Convert that to fraction of 24-hour cycle (0..1):
+      %fractionOfDay = %secondsElapsed / %dayLengthSec;
+
+      // 4) Incorporate any clock offset you’re using in City_GetHour()
+      //    Because offset is in hours, divide by 24 to get a fraction of a day.
+      %offsetFraction = $Pref::Server::City::General::ClockOffset / 24;
+      %dayOffset = (%fractionOfDay + %offsetFraction) % 1;
+
+      // 5) Finally, set the DayCycle’s position within the day:
+      DayCycle.setDayOffset(%dayOffset + $Debug::DayOffset);
+
+      $DayCycleEnabled = 1;
+      messageAll('', "\c5Day Cycle Enabled.");
+   }
 }
 
 function serverCmdsetOre(%client, %int)

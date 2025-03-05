@@ -640,8 +640,10 @@ package CRPG_Commands
 			%string = %string @ "\n" @ "Criminal record:" SPC (getWord(City.get(%target.bl_id, "jaildata"), 0) ? "Yes" : "No");
 
 			// Lots Owned
-			//if(%lotsOwned = getWordCount($City::Cache::LotsOwnedBy[%target.bl_id]) > 0)
+			%lotsOwned = getWordCount($City::Cache::LotsOwnedBy[%target.bl_id]);
+			%taxes = City_calcTaxes(%target);
 			%string = %string @ "\n" @ "Lots owned:" SPC ((%lotsOwned > 0) ? %lotsOwned : 0) @ "/" @ $Pref::Server::City::RealEstate::maxLots;
+			%string = %string @ "\n" @ "Taxes: $" SPC ((%taxes > 0) ? %taxes : 0);
 			
 			// Lots visited
 			%lotsVisited = getWordCount(City.get(%target.bl_id, "lotsvisited"));

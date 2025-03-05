@@ -96,7 +96,7 @@ function CityMenu_Lot(%client, %input)
 
 	if(%lotBrick.getCityLotPreownedPrice() != -1)
 	{
-		%client.cityMenuMessage("\c6This lot is listed for sale by owner for " @ $c_p @ "$" @ %lotBrick.getCityLotPreownedPrice() @ "\c6.");
+		%client.cityMenuMessage("\c6This lot is listed for sale by owner for " @ $c_p @ "$" @ %lotBrick.getCityLotPreownedPrice() @ "\c6. The taxes are " @ $c_p @ "$" @ %lotBrick.getDatablock().CityRPGBrickLotTaxes @ "\c6.");
 	}
 
 	// ## Options for all lots ## //
@@ -106,7 +106,7 @@ function CityMenu_Lot(%client, %input)
 	// ## Options for unclaimed lots ## //
 	if(%lotBrick.getCityLotOwnerID() == -1)
 	{
-		%client.cityMenuMessage("\c6This lot is for sale! It can be purchased for " @ $c_p @ "$" @ %price @ "\c6.");
+		%client.cityMenuMessage("\c6This lot is for sale! It can be purchased for " @ $c_p @ "$" @ %price @ "\c6. The taxes are " @ $c_p @ "$" @ %lotBrick.getDatablock().CityRPGBrickLotTaxes @ "\c6.");
 
 		// Place these options first.
 		%menu = rtrim("Purchase this lot. " TAB %menu);

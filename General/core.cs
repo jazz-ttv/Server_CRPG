@@ -44,7 +44,7 @@ function City_ServerTick(%brick)
 	//CityLots_EnableSaver();
 	CityLotRegistry.save();
 
-	cityDebug(1, "City: Server tick complete in " @ mFloatLength(((getSimTime() - %time) / 1000), 2) @ " seconds.");
+	cityDebug(1, "City: Server tick complete in " @ mAbs(mFloatLength(((getSimTime() - %time) / 1000), 2)) @ " seconds.");
 }
 
 function City_ClientTick(%loop)

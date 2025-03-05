@@ -282,15 +282,27 @@ function City_BottomPrintLoop()
 
 function City_GetHour()
 {
-	%currTime = getSimTime();
-	%citySimTime =  %currTime - $City::ClockStart;
-	%tickLengthSec = $Pref::Server::City::General::TickSpeed * 60;
+   // Current real time in milliseconds
+   %currTime = getSimTime();
 
-	%tickSecondsElapsed = (%citySimTime / 1000) % 300;
+   // How long (ms) since we started the city clock
+   %citySimTime = %currTime - $City::ClockStart;
 
-	%hour = ((%tickSecondsElapsed % 300) / 12 + $Pref::Server::City::General::ClockOffset) % 24;
+   // Total seconds in one full in-game day (TickSpeed is in minutes)
+   %dayLengthSec = $Pref::Server::City::General::TickSpeed * 60;
 
-	return %hour;
+   // Convert citySimTime to seconds and clamp to [0 ... dayLengthSec) by modulo
+   %secondsElapsed = (%citySimTime / 1000) % %dayLengthSec;
+
+   // Figure out where we are in the 24-hour in-game cycle:
+   //   fractionOfDay = 0 means 00:00 (midnight)
+   //   fractionOfDay = 1 means 24:00 (next midnight)
+   %fractionOfDay = %secondsElapsed / %dayLengthSec;
+
+   // Convert that fraction to in-game “hour,” add offset, then clamp to [0..24)
+   %hour = ((%fractionOfDay * 24) + $Pref::Server::City::General::ClockOffset) % 24;
+
+   return %hour;
 }
 
 
