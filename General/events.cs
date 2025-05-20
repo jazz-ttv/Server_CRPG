@@ -74,6 +74,24 @@ function fxDTSBrick::onJobTestFail(%brick, %client)
 	%brick.processInputEvent("onJobTestFail", %client);
 }
 
+function fxDTSBrick::onGangTestPass(%brick, %client)
+{
+	$inputTarget_self	= %brick;
+	$inputTarget_player	= %client.player;
+	$inputTarget_client	= %client;
+
+	%brick.processInputEvent("onGangTestPass", %client);
+}
+
+function fxDTSBrick::onGangTestFail(%brick, %client)
+{
+	$inputTarget_self	= %brick;
+	$inputTarget_player	= %client.player;
+	$inputTarget_client	= %client;
+
+	%brick.processInputEvent("onGangTestFail", %client);
+}
+
 function fxDTSBrick::onMenuOpen(%brick, %client)
 {
 	$inputTarget_self	= %brick;
@@ -127,6 +145,29 @@ function fxDTSBrick::doJobTest(%brick, %job, %convicts, %client)
 	}
 	else
 		%brick.onJobTestFail(%client);
+}
+
+function fxDTSBrick::doGangTest(%brick, %client)
+{
+	if(!%client.isInGang())
+		%brick.onGangTestFail(%client);
+	%lotTrigger = %brick.cityLotTriggerCheck();
+	%lotBrick = %lotTrigger.parent;
+
+	if(!isObject(%lotBrick))
+		return;
+
+	if(!%lotBrick.isGangLot())
+		%brick.onGangTestFail(%client);
+
+	%gang = %lotBrick.getGangName();
+	%clGang = %client.getGang();
+	if(%clGang $= %gang)
+	{
+		%brick.onGangTestPass(%client);
+	}
+	else
+		%brick.onGangTestFail(%client);
 }
 
 function fxDTSBrick::sellServices(%brick, %serviceName, %fund, %client)
@@ -312,6 +353,8 @@ function City_Init_AssembleEvents()
 	registerInputEvent("fxDTSBrick", "onTransferDecline", "Self fxDTSBrick" TAB "Client GameConnection");
 	registerInputEvent("fxDTSBrick", "onJobTestPass", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
 	registerInputEvent("fxDTSBrick", "onJobTestFail", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
+	registerInputEvent("fxDTSBrick", "onGangTestPass", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
+	registerInputEvent("fxDTSBrick", "onGangTestFail", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
 	registerInputEvent("fxDTSBrick", "onMenuOpen", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
 	registerInputEvent("fxDTSBrick", "onMenuClose", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
 	registerInputEvent("fxDTSBrick", "onMenuInput", "Self fxDTSBrick" TAB "Player Player" TAB "Client GameConnection");
@@ -342,6 +385,7 @@ function City_Init_AssembleEvents()
     }
 
 	registerOutputEvent("fxDTSBrick", "doJobTest", "list ALL 0" @ %doJobTest_List TAB "bool");
+	registerOutputEvent("fxDTSBrick", "doGangTest");
 	for(%c = 0; %c <= $City::ItemCount-1; %c++)
 	{
 		%sellItem_List = %sellItem_List SPC strreplace($City::Item::name[%c].uiName, " ", "") SPC %c;

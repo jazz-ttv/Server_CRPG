@@ -157,6 +157,8 @@ exec($City::ScriptPath @ "Mayor/mayor.cs");
 exec($City::ScriptPath @ "Fishing/fishing.cs");
 exec($City::ScriptPath @ "Fishing/fishingItems.cs");
 exec($City::ScriptPath @ "Items/items.cs");
+exec($City::ScriptPath @ "Gangs/gangs.cs");
+exec($City::ScriptPath @ "Gangs/gangBank.cs");
 exec($City::ScriptPath @ "Mayor/mayorSaving.cs");
 
 // ============================================================

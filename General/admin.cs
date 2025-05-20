@@ -62,12 +62,26 @@ datablock PlayerData(Player9SlotJetPlayer : Player9SlotPlayer)
 // ============================================================
 // Other Admin Commands
 // ============================================================
+function servercmdenableDevMode(%client)
+{
+  if(!%client.isSuperAdmin)
+    return;
+  
+  $Pref::Server::City::General::StartingCash = 5000;
+  $Pref::Server::City::General::TickSpeed = 5;
+  $GameModeDisplayName = "CRPG Dev";
+  $Pref::Server::Name = "CRPG Test Server";
+
+  messageAll('', "\c5Dev Mode Enabled.");
+}
+
 function servercmdSaveCRPGData(%client)
 {
   if(%client.isSuperAdmin)
   {
     CalendarSO.saveData();
     CitySO.saveData();
+    GangSO.saveData();
     CityRPGData.save();
     //CityLots_EnableSaver();
     CityLotRegistry.save();
@@ -637,7 +651,7 @@ function serverCmdRespawnPoliceVehicles(%client)
   }
 }
 
-$Debug::DayOffset = 0;
+$Debug::DayOffset = 0.9;
 function serverCmdtoggleDayCycle(%client)
 {
    if (!%client.isAdmin)
@@ -654,25 +668,9 @@ function serverCmdtoggleDayCycle(%client)
       DayCycle.setEnabled(1);
       loadDayCycle("Add-Ons/DayCycle_Moderate/Moderate.daycycle");
 
-      // 1) Set day length (in real seconds) to TickSpeed * 60:
       %dayLengthSec = $Pref::Server::City::General::TickSpeed * 60;
       DayCycle.setDayLength(%dayLengthSec);
-
-      // 2) Calculate how many seconds have passed in our city clock
-      %currTime = getSimTime();                // milliseconds
-      %citySimTime = %currTime - $City::ClockStart;
-      %secondsElapsed = (%citySimTime / 1000) % %dayLengthSec;
-
-      // 3) Convert that to fraction of 24-hour cycle (0..1):
-      %fractionOfDay = %secondsElapsed / %dayLengthSec;
-
-      // 4) Incorporate any clock offset you’re using in City_GetHour()
-      //    Because offset is in hours, divide by 24 to get a fraction of a day.
-      %offsetFraction = $Pref::Server::City::General::ClockOffset / 24;
-      %dayOffset = (%fractionOfDay + %offsetFraction) % 1;
-
-      // 5) Finally, set the DayCycle’s position within the day:
-      DayCycle.setDayOffset(%dayOffset + $Debug::DayOffset);
+      DayCycle.setDayOffset($Debug::DayOffset);
 
       $DayCycleEnabled = 1;
       messageAll('', "\c5Day Cycle Enabled.");

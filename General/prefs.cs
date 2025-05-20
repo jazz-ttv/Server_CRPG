@@ -54,6 +54,7 @@ function CRPG_ApplyDefaultPrefValues()
     $Pref::Server::City::General::ClockOffset                                       = 6;
 
     $Pref::Server::City::RealEstate::maxLots                                        = 5;
+    $Pref::Server::City::RealEsate::lotCost["CityRPGStandLotBrickData"]             = 1500;
     $Pref::Server::City::RealEsate::lotCost["CityRPGSmallLotBrickData"]             = 1500;
     $Pref::Server::City::RealEsate::lotCost["CityRPGHalfSmallLotBrickData"]         = 2000;
     $Pref::Server::City::RealEsate::lotCost["CityRPGMediumLotBrickData"]            = 3000;
@@ -122,6 +123,7 @@ function CRPG_ApplyDefaultPrefValues()
     $Pref::Server::City::Crime::Demerits::bountyClaiming                            = 250;
     $Pref::Server::City::Crime::Demerits::tasingBros                                = 75;
     $Pref::Server::City::Crime::Demerits::propertyDamage                            = 15;
+    $Pref::Server::City::Crime::Demerits::GangBankRob                               = 150;    
     $Pref::Server::City::Crime::Demerits::grandTheftAuto                            = 0;
     $Pref::Server::City::Crime::Demerits::attemptedBnE                              = 0;
     $Pref::Server::City::Crime::Demerits::bankRobbery                               = 0;

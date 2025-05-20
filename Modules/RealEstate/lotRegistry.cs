@@ -29,6 +29,23 @@ function CityLots_TransferLot(%brick, %targetBL_ID)
 	%chown.target_group = "BrickGroup_" @ %targetBL_ID;
 	%chown.setStartBrick(%brick);
 
+	if(%brick.isGangLot())
+	{
+		%gang = %brick.getGangName();
+		for(%i = 1; %i <= getWordCount(GangSO.getGangMembers(%gang)) - 1; %i++)
+        {
+            %member = getWord(GangSO.getGangMembers(%gang), %i);
+            clearGangKickBricks(%gang, %member);
+        }
+
+        %gangBank = findGangBankBrick(%brick.getCityLotID());
+        if(isObject(%gangBank))
+            %gangBank.delete();
+
+        GangSO.removeGang(%gang);
+	}
+	%brick.setGangName("");
+
 	%brick.setCityLotOwnerID(%targetBL_ID);
 	if(%targetBL_ID == 1)
 		%brick.setCityLotPreownedPrice($Pref::Server::City::RealEsate::lotCost[%brick.dataBlock.getName()]);
@@ -116,6 +133,7 @@ function CityLots_InitRegistry()
 		%newRegistry.addValue("transferDate", "None");
 		%newRegistry.addValue("preownedSalePrice", -1);
 		%newRegistry.addValue("lotZone", "1");
+		%newRegistry.addValue("gang", "");
 		if(!isFile($City::SavePath @ "LotDefaults.txt"))
 			CityLotRegistry.saveDefs();
 	}

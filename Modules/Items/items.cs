@@ -32,7 +32,8 @@ function City_Init_Items()
 	City_RegisterItem(CityRPGLumberjackItem, 25, 0, 1);
 	City_RegisterItem(CityRPGChainsawItem, 50, 20, 2);
 	City_RegisterItem(CityRPGJackhammerItem, 50, 20, 2);
-	City_RegisterItem(FishingPole1Item, 25, 5, 1);
+	City_RegisterItem(FishingPole1Item, 50, 5, 1);
+	City_RegisterItem(FishingPole2Item, 25, 5, 1);
 	City_RegisterItem(CityRPGLBItem, 50, 5, 2);
 	City_RegisterItem(lockPickItem, 25, 10, 2);
 	City_RegisterItem(taserItem, 50, 10, 2);

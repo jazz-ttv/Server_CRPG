@@ -73,7 +73,7 @@ function City_AdjustEcon()
     %weight = %distance / 100;
     %newEcon = %oldEcon + (%target - %oldEcon) * %weight;
 
-	$City::Economics::Condition = mCeil(%newEcon);
+	$City::Economics::Condition = mClamp(mCeil(%newEcon), 0, 100);
 
 	// Calculate how "full" the city lumber and ore are
     %lumberRatio = CitySO.Lumber / $Pref::Server::City::Economics::MaxLumber;
@@ -100,7 +100,8 @@ function City_InfluenceEcon(%change)
     %adjustedChange = %change * (1 - %penaltyFactor);
     %newNumber = %current + %adjustedChange;
 
-    $City::Economics::Condition = mCeil(%newNumber);
+	cityDebug(1, "Econ change: " @ %change @ " | Old: " @ $City::Economics::Condition @ " | New: " @ mClamp(mCeil(%newNumber), 0, 100));
+    $City::Economics::Condition = mClamp(mCeil(%newNumber), 0, 100);
 }
 
 function City_ResetAllJobs(%client)
@@ -146,12 +147,15 @@ function City_calcTaxes(%client)
 				if(%b.getDatablock().CityRPGBrickType == $CityBrick_Lot && %b.getCityLotOwnerID() == %client.bl_id)
 				{
 					%zone = %b.getCityLotZone();
-					if(%zone == 1)
-						%owedTaxes += %b.getDatablock().CityRPGBrickLotTaxes;
-					else if(%zone == 2)
-						%owedTaxes += mFloor(%b.getDatablock().CityRPGBrickLotTaxes / 2);
-					else if(%zone == 3)
-						%owedTaxes += 0;
+					if(!%b.isGangLot())
+					{
+						if(%zone == 1)
+							%owedTaxes += %b.getDatablock().CityRPGBrickLotTaxes;
+						else if(%zone == 2)
+							%owedTaxes += mFloor(%b.getDatablock().CityRPGBrickLotTaxes / 2);
+						else if(%zone == 3)
+							%owedTaxes += 0;
+					}
 				}
 			}
 			%bi = 0;
@@ -256,6 +260,18 @@ function City_isLegalAttack(%atkr, %vctm)
 
 	if(isObject(%atkr) && isObject(%vctm) && %atkr.getClassName() $= "GameConnection" && %vctm.getClassName() $= "GameConnection")
 	{
+		if(%atkr.isInGang() && %vctm.isInGang())
+		{
+			if(%atkr.getGang() !$= %vctm.getGang())
+			{
+				if(isObject(%atkr.CityRPGTrigger) && isObject(%vctm.CityRPGTrigger))
+				{
+					if(%atkr.CityRPGTrigger == %vctm.CityRPGTrigger && %atkr.CityRPGTrigger.parent.getGangName() $= %atkr.getGang())
+						return true;
+				}
+			}
+		}
+
 		if(%atkr != %vctm)
 		{
 			if(%vctm.ifBounty() && %atkr.getJobSO().bountyClaim)

@@ -68,6 +68,24 @@ datablock triggerData(CityRPGInputTriggerData)
 // ============================================================
 // Lots Datablocks
 // ============================================================
+datablock fxDTSBrickData(CityRPGStandLotBrickData : brick8x16FData)
+{
+	iconName = $City::DataPath @ "ui/BrickIcons/16x16LotIcon";
+
+	category = "Baseplates";
+	subCategory = "CityRPG Lots";
+
+	uiName = "8x16 Lot";
+
+	CityRPGBrickType = $CityBrick_Lot;
+	CityRPGBrickAdmin = true;
+	CityRPGBrickLotTaxes = 0;
+
+	triggerDatablock = CityRPGLotTriggerData;
+	triggerSize = "8 16 16";
+	trigger = 0;
+};
+
 datablock fxDTSBrickData(CityRPGSmallLotBrickData : brick16x16FData)
 {
 	iconName = $City::DataPath @ "ui/BrickIcons/16x16LotIcon";
@@ -299,7 +317,6 @@ function fxDTSBrick::createCityTrigger(%brick)
 	}
 }
 
-//TODO: Add a containersearch to update all the bricks inside the lots trigger
 function fxDTSBrick::updateLotTrigger(%brick)
 {
 	//Never allow multiple triggers
@@ -495,13 +512,21 @@ function fxDTSBrick::cityBrickCheck(%brick)
 		}
 	}
 
+	%lotBrick = %lotTrigger.parent;
+
 	//Does the client have build trust with the owner of %lotTrigger?
 	if($Debug::Trust)
 	{
-		if(%brick.trustFail == true)
-		{
-			commandToClient(%client, 'centerPrint', %brick.lotOwnerName @ " does not trust you enough to do that.", 3);
+		if(!isObject(%lotBrick))
 			return 0;
+
+		if(!%lotBrick.isGangLot() && %client.getGang() != %lotBrick.getGangName())
+		{
+			if(%brick.trustFail == true)
+			{
+				commandToClient(%client, 'centerPrint', %brick.lotOwnerName @ " does not trust you enough to do that.", 3);
+				return 0;
+			}
 		}
 	}
 
@@ -511,6 +536,30 @@ function fxDTSBrick::cityBrickCheck(%brick)
 		if(%brick.getDatablock().CityRPGBrickType != $CityBrick_Lot && %brick.getCityBrickUnstable(%lotTrigger))
 		{
 			commandToClient(%client, 'ServerMessage', 'MsgPlantError_Unstable');
+			return 0;
+		}
+	}
+
+	if(%brick.getDatablock().CityRPGBrickGangBank)
+	{
+		if(!isObject(%lotBrick))
+			return 0;
+		cityDebug(1, "Gang bank check: " @ %lotBrick.getCityLotID());
+		if(!%client.isGangLeader())
+		{
+			commandToClient(%client, 'centerPrint', "You cannot plant a gang bank.", 3);
+			return 0;
+		}
+		if(!%lotBrick.isGangLot())
+		{
+			commandToClient(%client, 'centerPrint', "You cannot plant a gang bank here.", 3);
+			return 0;
+		}
+		%gangBankBrick = findGangBankBrick(%lotBrick.getCityLotID());
+		//cityDebug(1, "Gang bank found: " @ %gangBankBrick);
+		if(isObject(%gangBankBrick))
+		{
+			commandToClient(%client, 'centerPrint', "You have already placed a gang bank.", 3);
 			return 0;
 		}
 	}
@@ -791,7 +840,7 @@ function fxDTSBrick::payCosts(%brick)
 			if(CitySO.lumber >= %materialCost)
 			{
 				CitySO.lumber -= %materialCost;
-				City_InfluenceEcon(%materialCost / 10);
+				//City_InfluenceEcon(%materialCost / 10);
 				%client.centerPrint("<br><br><just:right><font:Arial Bold:32>" @ $c_s @ "-" @ %materialCost @ " <br><just:right><font:Arial:22> " @ $c_s @ CitySO.lumber @ $c_p @ " City Lumber", 10);
 			}
 		}

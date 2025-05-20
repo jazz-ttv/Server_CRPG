@@ -22,7 +22,7 @@ datablock ItemData(FishingPole1Item : HammerItem)
 {
 	iconName = $City::DataPath @ "ui/itemicons/fishingRod1";
 	shapeFile = $City::DataPath @ "shapes/fishing/fishingpole/pole.dts";
-	uiName = "Fishing Pole";
+	uiName = "Fishing Pole Sport";
 
 	image = "FishingPole1Image";
 	doColorShift = true;
@@ -65,38 +65,38 @@ datablock ShapeBaseImageData(FishingPole1Image : swordImage)
 	toolTip = "Fish in any pond";
 };
 
-// datablock ItemData(FishingPole2Item : FishingPole1Item)
-// {
-// 	shapeFile = $City::DataPath @ "shapes/fishing/fishingpole/pole2.dts";
-// 	doColorShift = true;
-// 	colorShiftColor = "0.59 0.40 0.18 1";
-// 	image = FishingPole2Image;
-// 	uiName = "Fishing Pole 2";
-// 	iconName = $City::DataPath @ "ui/itemicons/fishingRod2";
-// };
+datablock ItemData(FishingPole2Item : FishingPole1Item)
+{
+	shapeFile = $City::DataPath @ "shapes/fishing/fishingpole/pole2.dts";
+	doColorShift = true;
+	colorShiftColor = "0.59 0.40 0.18 1";
+	image = FishingPole2Image;
+	uiName = "Fishing Pole";
+	iconName = $City::DataPath @ "ui/itemicons/fishingRod1";
+};
 
-// datablock ShapeBaseImageData(FishingPole2Image : FishingPole1Image)
-// {
-// 	shapeFile = $City::DataPath @ "shapes/fishing/fishingpole/pole2.dts";
+datablock ShapeBaseImageData(FishingPole2Image : FishingPole1Image)
+{
+	shapeFile = $City::DataPath @ "shapes/fishing/fishingpole/pole2.dts";
 
-// 	item = FishingPole2Item;
-// 	doColorShift = true;
-// 	colorShiftColor = FishingPole2Item.colorShiftColor;
-// 	rotation = eulerToMatrix("-50 0 0");
+	item = FishingPole2Item;
+	doColorShift = true;
+	colorShiftColor = FishingPole2Item.colorShiftColor;
+	rotation = eulerToMatrix("-50 0 0");
 
-// 	fishingRange = 64;
-// 	fishingForce = 25;
-// 	fishingPSub = 400;
-// 	fishingPDiv = 1600;
-// 	fishingBaseQuality = 3.1;
-// 	fishingQSub = 300;
-// 	fishingQDiv = 700;
+	fishingRange = 64;
+	fishingForce = 25;
+	fishingPSub = 400;
+	fishingPDiv = 1600;
+	fishingBaseQuality = 3.1;
+	fishingQSub = 300;
+	fishingQDiv = 700;
 
-// 	areaHarvest = 2;
-// 	stateTimeoutValue[2] = 0.4;
+	areaHarvest = 2;
+	stateTimeoutValue[2] = 0.4;
 
-// 	toolTip = "Fish in any pond";
-// };
+	toolTip = "Fish in any pond";
+};
 
 // datablock ItemData(FishingPole3Item : FishingPole1Item)
 // {

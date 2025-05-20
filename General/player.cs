@@ -178,6 +178,9 @@ function gameConnection::cityLotDisplay(%client, %lotBrick)
 		%duration = 3;
 	}
 
+	if(%lotBrick.isGangLot())
+		%lotStr = %lotStr @ "<br>\c6Gang: \c0" @ %lotBrick.getGangName();
+
 	if(%client.isCityAdmin())
 	{
 		%lotStr = %lotStr @ "<br>\c4ID:" @ %lotBrick.getCityLotID();
@@ -529,6 +532,12 @@ function CityMenu_Player(%client)
 	%menu = ltrim(%menu);
 	%functions = ltrim(%functions);
 
+	if(%client.isInGang())
+	{
+		%menu = %menu TAB "Gang stats.";
+		%functions = %functions TAB "CityMenu_Gang";
+	}
+
 	if(%client.getJobSO().canPardon || %client.getJobSO().canErase || City.get(%client.bl_id, "jobID") $= $Pref::Server::City::MayorJobID)
 	{
 		%menu = %menu TAB "Legal actions.";
@@ -544,6 +553,12 @@ function CityMenu_Player(%client)
 	%functions = %functions TAB "CityMenu_Close";
 	
 	%client.cityMenuOpen(%menu, %functions, %client.getID(), -1, 0, 1, "Actions Menu");
+}
+
+function CityMenu_Gang(%client)
+{
+	serverCmdGangStats(%client);
+	%client.cityMenuClose();
 }
 
 function CityMenu_Player_Stats(%client)

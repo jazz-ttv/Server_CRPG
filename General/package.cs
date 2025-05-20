@@ -22,6 +22,32 @@ package CRPG_MainPackage
 // Brick Packages
 // ============================================================
 
+	function getTrustLevel(%that, %this)
+	{
+		if(isObject(%this) && isObject(%that))
+		{
+			if(%this.getType() & $TypeMasks::fxBrickAlwaysObjectType && %that.getType() & $TypeMasks::fxBrickAlwaysObjectType)
+			{
+				if(isObject(%this.client))
+				{
+					if(%this.client.isInGang())
+					{
+						if(isObject(%that.cityLotTriggerCheck()))
+						{
+							if(%that.cityLotTriggerCheck().parent.getGangName() $= %this.client.getGang())
+							{
+								//cityDebug(1, "Gang trust check: " @ %this.client.getGang() @ " trust " @ %that.cityLotTriggerCheck().parent.getGang());
+								return 1;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		parent::getTrustLevel(%this, %that);
+	}
+
 	function servercmdPlantBrick(%client)
 	{
 		if(isObject(%client.player.tempBrick))
@@ -202,9 +228,9 @@ package CRPG_MainPackage
 				// Intro message
 				// Beware of the 255-character packet limit.
 				%client.schedule(4000, extendedMessageBoxOK, "Welcome to CRPG",
-									"<just:center><font:Arial:20>This CRPG uses a CenterPrint menu system that you can use with your brick building controls.  " @
-									"<font:Arial:18>Try using your cancel brick button to bring up the player menu to try it out!" @
-									"<br><br><font:Arial:20>Be sure to check out the /help and /stats commands" @
+									"<just:center><font:Arial Bold:16>This CRPG uses a CenterPrint menu system that you can use with your brick building controls.  " @
+									"<font:Arial Bold:14>Try using your cancel brick button to bring up the player menu to try it out!" @
+									"<br><br>Be sure to check out the /help and /stats commands" @
 									// "<br>CRPG is in Beta testing. You may encounter bugs and incomplete features along the way." @
 									"<br>Have fun!");
 			}
@@ -353,6 +379,7 @@ package CRPG_MainPackage
 				%killer.lastKill = $Sim::Time;
 			}
 		}
+		
 		schedule(500, %client, autoRespawn, %client);
 
 		parent::onDeath(%client, %player, %killer, %damageType, %unknownA);
@@ -763,6 +790,10 @@ package CRPG_MainPackage
 			if(getWord(City.get(%client.bl_id, "jaildata"), 1))
 			{
 				messageCityJail($c_p @ "[<color:777777>Inmate" @ $c_p @ "]" SPC %client.name @ "<color:777777>:" SPC %text);
+			}
+			else if(%client.isInGang())
+			{
+				messageCityGang(%client.getGang(), '', %client.name @ "\c6:" SPC %text);
 			}
 			else
 			{

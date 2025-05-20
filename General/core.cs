@@ -25,6 +25,14 @@ function City_ServerTick(%brick)
 	City_MayorTick();
 	City_RespawnPoliceVehicles();
 
+	%topGang = City_CalcGangNotoriety();
+	if(getWord(%topGang, 0) !$= "")
+	{
+		%topGang = getWord(%topGang, 0);
+		messageAll('', $c_s @ " - " @ $c_p @ %topGang @ $c_s @ " is the most \c0notorious \c6gang.");
+		GangSO.setGangBank(%topGang, GangSO.getGangBank(%topGang) + (ClientGroup.getCount() * 100));
+	}
+
 	messageAll('', $c_s @ " - The current economy is " @ City_getEconStr());
 	messageAll('', $c_s @ " - The city has " @ mFloor(CitySO.Lumber) @ $c_p @ " Lumber " @ $c_s @ ", " @ mFloor(CitySO.Ore) @ $c_p @ " Ore" @ $c_s @ " and " @ mFloor(CitySO.Fish) @ $c_p @ " Fish");
 
@@ -40,6 +48,7 @@ function City_ServerTick(%brick)
 
 	CalendarSO.saveData();
 	CitySO.saveData();
+	GangSO.saveData();
 
 	//CityLots_EnableSaver();
 	CityLotRegistry.save();

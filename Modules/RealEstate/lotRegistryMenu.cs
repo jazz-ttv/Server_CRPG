@@ -118,6 +118,16 @@ function CityMenu_Lot(%client, %input)
 	{
 		%menu = %menu TAB "Lot management.";
 		%functions = %functions TAB "CityMenu_LotOwnerManagement";
+		if(!%lotBrick.isGangLot() && !%client.isInGang())
+		{
+			%menu = %menu TAB "Form Gang [\c3$" @ $Pref::Server::City::Gangs::formCost @ "\c6]";
+			%functions = %functions TAB "CityMenu_FormGangPrompt";
+		}
+		if(%lotBrick.isGangLot() && %client.isGangLeader())
+		{
+			%menu = %menu TAB "Gang management.";
+			%functions = %functions TAB "CityMenu_GangManagement";
+		}
 	}
 
 	// ## Options for non-owners only ## //
@@ -260,15 +270,19 @@ function CityMenu_LotOwnerManagement(%client)
 		%menu = %menu TAB "Upgrade Zone.";
 		%functions = %functions TAB "CityMenu_LotUpgradeZonePrompt";
 	}
-	if(%lotBrick.getCityLotPreownedPrice() == -1)
+
+	if(!%lotBrick.isGangLot())
 	{
-		%menu = %menu TAB "List this lot for sale.";
-		%functions = %functions TAB "CityMenu_Lot_ListForSalePrompt";
-	}
-	else
-	{
-		%menu = %menu TAB "Take this lot off sale.";
-		%functions = %functions TAB "CityMenu_Lot_RemoveFromSale";
+		if(%lotBrick.getCityLotPreownedPrice() == -1)
+		{
+			%menu = %menu TAB "List this lot for sale.";
+			%functions = %functions TAB "CityMenu_Lot_ListForSalePrompt";
+		}
+		else
+		{
+			%menu = %menu TAB "Take this lot off sale.";
+			%functions = %functions TAB "CityMenu_Lot_RemoveFromSale";
+		}
 	}
 
 	%menu = %menu TAB "Go back.";

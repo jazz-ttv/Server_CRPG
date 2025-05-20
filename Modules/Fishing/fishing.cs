@@ -221,7 +221,7 @@ function bobberCheck(%bobber)
 	%dist = vectorDist(%bobber.position, %bobber.player.position);
 	%start = %bobber.position;
 	%end = %bobber.player.getMuzzlePoint(0);
-	%hit = containerRaycast(%start, %end, $Typemasks::fxBrickObjectType);
+	%hit = containerRaycast(%start, %end, $Typemasks::fxBrickAlwaysObjectType);
 	if (isObject(%hit))
 	{
 		%bobber.LOSBlockedCount++;

@@ -51,26 +51,26 @@ registerOutputEvent("fxDTSBrick","sellSlotSpin","int 0 50 5",1);
 if($City::Gambling::Slots::ComboCnt == 0)
 {
 	$City::Gambling::Slots::ComboCnt = -1;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead" TAB 1;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead" TAB 2;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead Blockhead" TAB 250;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Clover Clover Clover" TAB 150;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Diamond Diamond Diamond" TAB 100;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Seven Seven Seven" TAB 50;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Heart Heart Heart" TAB 25;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Grapes Grapes Grapes" TAB 10;
+	//$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead" TAB 1;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead" TAB 1;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead Blockhead" TAB 50;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Clover Clover Clover" TAB 25;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Diamond Diamond Diamond" TAB 15;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Seven Seven Seven" TAB 10;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Heart Heart Heart" TAB 5;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Grapes Grapes Grapes" TAB 2;
 }
 function resetSlotsPrefs()
 {
 	$City::Gambling::Slots::ComboCnt = -1;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead" TAB 1;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead" TAB 2;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead Blockhead" TAB 250;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Clover Clover Clover" TAB 150;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Diamond Diamond Diamond" TAB 100;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Seven Seven Seven" TAB 50;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Heart Heart Heart" TAB 25;
-	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Grapes Grapes Grapes" TAB 10;
+	//$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead" TAB 1;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead" TAB 1;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Blockhead Blockhead Blockhead" TAB 50;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Clover Clover Clover" TAB 25;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Diamond Diamond Diamond" TAB 15;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Seven Seven Seven" TAB 10;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Heart Heart Heart" TAB 5;
+	$City::Gambling::Slots::Combo[$City::Gambling::Slots::ComboCnt++] = "Grapes Grapes Grapes" TAB 2;
 }
 
 if(!$City::Gambling::Slots::CanPlayMultiple)
